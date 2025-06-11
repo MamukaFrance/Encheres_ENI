@@ -1,17 +1,10 @@
 package fr.eni.tp.enchere.dal;
 
-import fr.eni.tp.enchere.bo.Adresse;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 @Repository
 public class UtilisateursDAOImpl implements UtilisateursDAO{
@@ -35,9 +28,9 @@ public class UtilisateursDAOImpl implements UtilisateursDAO{
         namedParameters.addValue("prenom", utilisateur.getPrenom());
         namedParameters.addValue("email", utilisateur.getEmail());
         namedParameters.addValue("telephone", utilisateur.getTelephone());
-        namedParameters.addValue("mot_de_passe", utilisateur.getMot_de_passe());
+        namedParameters.addValue("mot_de_passe", utilisateur.getMotDePasse());
         namedParameters.addValue("credit", utilisateur.getCredit());
-        namedParameters.addValue("administrateur", utilisateur.getAdministrateur());
+        namedParameters.addValue("administrateur", utilisateur.isAdmin());
         namedParameters.addValue("no_adresse", utilisateur.getAdresse().getId());
 
 
@@ -79,35 +72,16 @@ public class UtilisateursDAOImpl implements UtilisateursDAO{
         namedParameters.addValue("prenom", utilisateur.getPrenom());
         namedParameters.addValue("email", utilisateur.getEmail());
         namedParameters.addValue("telephone", utilisateur.getTelephone());
-        namedParameters.addValue("mot_de_passe", utilisateur.getMot_de_passe());
+        namedParameters.addValue("mot_de_passe", utilisateur.getMotDePasse());
         namedParameters.addValue("credit", utilisateur.getCredit());
-        namedParameters.addValue("administrateur", utilisateur.getAdministrateur());
+        namedParameters.addValue("administrateur", utilisateur.isAdmin());
         namedParameters.addValue("no_adresse", utilisateur.getAdresse().getId());
 
         jdbcTemplate.update(UPDATE, namedParameters);
     }
 
 
-    class UtilisateurRowMapper implements RowMapper<Utilisateur> {
 
-        public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Utilisateur f = new Utilisateur();
-            f.setPeusdo(rs.getString("pseudo"));
-            f.setNom(rs.getString("nom"));
-            f.setPrenom(rs.getString("prenom"));
-            f.setEmail(rs.getString("email"));
-            f.setTelephone(rs.getString("telephone"));
-            f.setMotdepasse(rs.getString("mot_de_passe"));
-            f.setCredit(rs.getInt("credit"));
-            f.setAdministrateur(rs.getBoolean("administrateur"));
-
-            Adresse adresse = new Adresse();
-            adresse.setId(rs.getLong("no_adresse"));
-            f.setAdresse(adresse);
-
-            return f;
-        }
-    }
 }
 
 
