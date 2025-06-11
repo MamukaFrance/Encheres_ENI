@@ -1,9 +1,14 @@
 package fr.eni.tp.enchere.controller;
 
 import fr.eni.tp.enchere.bll.EncheresService;
+import fr.eni.tp.enchere.bo.ArticleAVendre;
+import fr.eni.tp.enchere.bo.Enchere;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Controller
 
@@ -16,8 +21,14 @@ public class EncheresController {
       this.encheresService = encheresService;
    }
 
+    // Sur la page d'accueil on demande la liste des encheres en cours, mais on veut en
+    // faite la liste des objets a vendre!!(consulter enchere mais on affiche une liste d'objet a vendre)
     @GetMapping
-    public String consulterEncheres() {
+    public String consulterEncheres(Model model) {
+
+        List<ArticleAVendre> listArticleavendre = this.encheresService.consulterEncheres();
+        model.addAttribute("articles", listArticleavendre);
+
         return "view-listeEncheres";
     }
 
