@@ -94,4 +94,7 @@ public class Utilisateur {
         this.adresse = adresse;
     }
 
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = motDePasse;
+    }
 }
