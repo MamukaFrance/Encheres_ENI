@@ -4,8 +4,8 @@ import fr.eni.tp.enchere.bo.Adresse;
 
 public interface AdresseDAO {
     void createAdresse (Adresse adresse);
-    Adresse readUtilisateurByID (long id);
-    void deleteUtilisateur (long id);
-    Adresse updateUtilisateur (Adresse adresse);
+    Adresse readAdresseByID (long id);
+    void deleteAdresse (long id);
+    Adresse updateAdresse (Adresse adresse);
 
 }

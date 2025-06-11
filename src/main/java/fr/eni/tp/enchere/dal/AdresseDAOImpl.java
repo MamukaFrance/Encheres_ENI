@@ -32,17 +32,17 @@ public class AdresseDAOImpl implements AdresseDAO{
     }
 
     @Override
-    public Adresse readUtilisateurByID(long id) {
+    public Adresse readAdresseByID(long id) {
         return jdbcTemplate.queryForObject(SELECT_BY_ID, new MapSqlParameterSource("id", id), new AdresseRowMapper());
     }
 
     @Override
-    public void deleteUtilisateur(long id) {
+    public void deleteAdresse(long id) {
         jdbcTemplate.update(DELETE, new MapSqlParameterSource("id", id));
     }
 
     @Override
-    public Adresse updateUtilisateur(Adresse adresse) {
+    public Adresse updateAdresse(Adresse adresse) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", adresse.getId());
         params.addValue("rue", adresse.getRue());
