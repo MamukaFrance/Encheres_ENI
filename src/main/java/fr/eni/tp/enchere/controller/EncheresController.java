@@ -1,17 +1,20 @@
 package fr.eni.tp.enchere.controller;
 
+import fr.eni.tp.enchere.bll.EncheresService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 
 public class EncheresController {
-//    private final EncheresService encheresService;
-//
-//    @Autowired
-//    public EncheresController(EncheresService encheresService) {
-//        this.encheresService = encheresService;
-//    }
+
+   private final EncheresService encheresService;
+
+  @Autowired
+  public EncheresController(EncheresService encheresService) {
+      this.encheresService = encheresService;
+   }
 
     @GetMapping
     public String consulterEncheres() {
