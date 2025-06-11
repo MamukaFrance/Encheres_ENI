@@ -1,10 +1,16 @@
 package fr.eni.tp.enchere.bll;
 
+import fr.eni.tp.enchere.bo.ArticleAVendre;
+import fr.eni.tp.enchere.bo.Enchere;
 import fr.eni.tp.enchere.dal.AdresseDAO;
 import fr.eni.tp.enchere.dal.ArticleAVendreDAO;
 import fr.eni.tp.enchere.dal.UtilisateursDAO;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Primary
@@ -21,8 +27,19 @@ private UtilisateursDAO utilisateursDAO;
     }
 
     @Override
-    public String consulterEncheres() {
-        return "";
+    // Sur la page d'accueil on demande la liste des encheres en cours, mais on veut en
+    // faite la liste des objets a vendre!!(consulter enchere mais on affiche une liste d'objet a vendre)
+    public List<ArticleAVendre>  consulterEncheres() {
+        List<ArticleAVendre> articlesAVendres = this.articleAVendreDAO.articlesLst();
+
+        LocalDate aujourdHui = LocalDate.now();
+
+        List<ArticleAVendre> articlesFiltres = articlesAVendres.stream()
+                .filter(article -> article.getDateFinEncheres().isAfter(aujourdHui)).toList();
+
+
+        return articlesFiltres;
+
     }
 
     @Override
