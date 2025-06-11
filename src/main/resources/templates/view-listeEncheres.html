@@ -5,7 +5,7 @@
 <title>Liste des enchères</title>
 
 <main>
-    <form action="/mouton" method="post">
+    <form action="/encheres" method="post">
         <ul class="flex-outer">
             <li>
                 <label for="filtres">Filtres :</label>
@@ -23,6 +23,35 @@
                 <input type="reset" value="Annuler">
             </li>
         </ul>
+        <ul>
+            <li>
+                <div>
+                    <label>
+                        <input type="radio" id="achatsVentes" name="Achats">
+                        Achats
+                    </label>
+                    <select>
+                    <option>Enchères ouvertes</option>
+                    <option value="en_cours">Mes enchères en cours</option>
+                    <option value="remportees">Mes enchères remportées</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>
+                        <input type="radio" id="achatsVentes" name="Ventes">
+                        Mes ventes
+                    </label>
+                    <select>
+                        <option>Mes ventes en cours</option>
+                        <option value="non_debutees">Mes ventes non débutées</option>
+                        <option value="terminees">Mes ventes terminées</option>
+                    </select>
+                </div>
+
+            </li>
+        </ul>
+
 
         </form>
 </main>
