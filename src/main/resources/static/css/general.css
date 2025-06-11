@@ -49,6 +49,11 @@ header a:hover {
 	color: rgb(0, 128, 192);
 }
 
+header img {
+	height: 20px;
+	max-width: 20px;
+}
+
 main {
 	margin-top: 15px;
 	margin-left: 15px;

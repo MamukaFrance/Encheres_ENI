@@ -6,12 +6,19 @@
     <link rel="stylesheet" data-th-href="@{/css/table.css}">
     <link rel="stylesheet" data-th-href="@{/css/layout.css}">
     <link rel="stylesheet" data-th-href="@{/css/form.css}">
+
+    <link rel="icon" data-th-href="@{/images/encheres.png}" sizes="32x32">
+
     <title data-th-replace="${titre}">Enchères-ENI</title>
+
 </head>
 
 <header >
     <h1 id="nav-title">
-        <a href="/">Enchères ENI</a>
+
+            <a href="/dragons"><img data-th-src="@{/images/encheres.png}" style="width: 200px;"/><span>Enchères ENI</span></a>
+
+
         <!--<th:block data-th-if="${#authorization.expression('isAuthenticated()')}">
             <p data-th-text="${#authentication.name}"></p>
             <a data-th-href="@{/logout}" >Se d�connecter</a>
@@ -26,7 +33,7 @@
             <li><a href="/inscript_connect">S'inscrire/se connecter</a></li>
             <li><a href="/vendreArticle">Vendre un article</a></li>
             <li><a href="/profil">Mon profil</a></li>
-            <li><a href="/deconnexion">Se d�connecter</a></li>
+            <li><a href="/deconnexion">Se déconnecter</a></li>
         </ul>
     </nav>
     <div>
