@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html data-th-fragment="layout(contenu,titre)" lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" data-th-href="@{/css/general.css}">
+    <link rel="stylesheet" data-th-href="@{/css/table.css}">
+    <link rel="stylesheet" data-th-href="@{/css/layout.css}">
+    <link rel="stylesheet" data-th-href="@{/css/form.css}">
+    <title data-th-replace="${titre}">Enchères-ENI</title>
+</head>
+
+<header >
+    <h1 id="nav-title">
+        <a href="/">Enchères ENI</a>
+        <!--<th:block data-th-if="${#authorization.expression('isAuthenticated()')}">
+            <p data-th-text="${#authentication.name}"></p>
+            <a data-th-href="@{/logout}" >Se d�connecter</a>
+        </th:block>
+        <th:block data-th-if="${!#authorization.expression('isAuthenticated()')}">
+            <a data-th-href="@{/login}" >Se connecter</a>
+        </th:block> -->
+    </h1>
+    <nav>
+        <ul>
+            <li><a href="/accueil">Accueil</a></li>
+            <li><a href="/inscript_connect">S'inscrire/se connecter</a></li>
+            <li><a href="/vendreArticle">Vendre un article</a></li>
+            <li><a href="/profil">Mon profil</a></li>
+            <li><a href="/deconnexion">Se d�connecter</a></li>
+        </ul>
+    </nav>
+    <div>
+        <p>Date du jour :
+            <span th:text="${T(java.time.LocalDate).now().format(T(java.time.format.DateTimeFormatter).ofPattern('dd MMMM yyyy'))}"></span>
+        </p>
+        <p>Participant :
+            <span></span>
+        </p>
+    </div>
+</header>
+
+<main class="center-main" data-th-replace="${contenu}">
+    <section class="center-section">
+        <h1 style="text-align:center;">Enchères ENI</h1>
+        <h2 style="text-align:center;">- à remplacer -</h2>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; Enchères ENI - Tous droits réservés</p>
+</footer>
+
+</html>

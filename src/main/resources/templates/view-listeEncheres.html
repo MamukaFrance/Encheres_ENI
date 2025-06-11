@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr" data-th-replace="~{file-layout::layout(contenu=~{::main},titre=~{::title})}"
+      xmlns:th="http://www.thymeleaf.org">
+
+<title>Liste des enchères</title>
+
+<main>
+    <form action="/mouton" method="post">
+        <ul class="flex-outer">
+            <li>
+                <label for="filtres">Filtres :</label>
+                <input type="text" id="filtres" placeholder="Le nom de l'article contient"
+                       data-th-field="${ArticleAVendre.nom}">
+            </li>
+            <li>
+                <label for="categorie">Catégorie :</label>
+                <select id="categorie" name="categorie">
+                    <option data-th-each="a : ${categorie}" data-th-value="${a.id}"
+                            data-th-text="${a.libelle}">
+            </li>
+            <li>
+                <input type="submit" value="Rechercher">
+                <input type="reset" value="Annuler">
+            </li>
+        </ul>
+
+        </form>
+</main>
+</html>
