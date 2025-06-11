@@ -10,4 +10,38 @@ public class Enchere {
     private Utilisateur acquereur;
     private ArticleAVendre articleAVendre;
 
+    public Enchere() {
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public int getMontant() {
+        return montant;
+    }
+
+    public void setMontant(int montant) {
+        this.montant = montant;
+    }
+
+    public Utilisateur getAcquereur() {
+        return acquereur;
+    }
+
+    public void setAcquereur(Utilisateur acquereur) {
+        this.acquereur = acquereur;
+    }
+
+    public ArticleAVendre getArticleAVendre() {
+        return articleAVendre;
+    }
+
+    public void setArticleAVendre(ArticleAVendre articleAVendre) {
+        this.articleAVendre = articleAVendre;
+    }
 }
