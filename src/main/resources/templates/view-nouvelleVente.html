@@ -19,8 +19,8 @@
             <li>
                 <label for="categorie">Catégorie <span>*</span></label>
                 <select id="categorie" name="categorie">
-                    <option data-th-each="c : ${categories}" data-th-value="${a.id}"
-                            data-th-text="${a.libelle}"></option>
+                    <option data-th-each="c : ${categories}" data-th-value="${c.id}"
+                            data-th-text="${c.libelle}"></option>
                 </select>
             </li>
             <li>
@@ -34,7 +34,7 @@
             <li>
                 <label for="retrait">Retrait <span>*</span></label>
                 <select id="retrait" name="retrait">
-                    <option data-th-each="a : ${adresses}" data-th-value="${a.no_adresse}"
+                    <option data-th-each="a : ${adresses}" data-th-value="${a.id}"
                             data-th-text="${a.rue}"></option>
                 </select>
             </li>

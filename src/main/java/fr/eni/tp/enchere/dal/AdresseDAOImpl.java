@@ -2,9 +2,12 @@ package fr.eni.tp.enchere.dal;
 
 import fr.eni.tp.enchere.bo.Adresse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class AdresseDAOImpl implements AdresseDAO{
@@ -14,7 +17,7 @@ public class AdresseDAOImpl implements AdresseDAO{
     private  final String SELECT_BY_ID = "SELECT id, rue, code_postal, ville FROM ADRESSES WHERE id = :id";
     private  final String UPDATE = "UPDATE ADRESSES SET rue = :rue, code_postal = :codePostal, ville = :ville WHERE id = :id";
     private  final String DELETE = "DELETE FROM ADRESSES WHERE id = :id";
-
+    private final String READ_ALL = "SELECT * FROM ADRESSES";
 
 
     @Autowired
@@ -30,6 +33,14 @@ public class AdresseDAOImpl implements AdresseDAO{
 
         jdbcTemplate.update(INSERT, params);
     }
+
+
+    @Override
+    public List<Adresse> readAll() {
+
+        return jdbcTemplate.query(READ_ALL, new BeanPropertyRowMapper<>(Adresse.class));
+    }
+
 
     @Override
     public Adresse readAdresseByID(long id) {

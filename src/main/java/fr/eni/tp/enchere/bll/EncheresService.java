@@ -1,6 +1,8 @@
 package fr.eni.tp.enchere.bll;
 
+import fr.eni.tp.enchere.bo.Adresse;
 import fr.eni.tp.enchere.bo.ArticleAVendre;
+import fr.eni.tp.enchere.bo.Categorie;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -11,7 +13,10 @@ public interface EncheresService {
 
     public String voirEnchere();
 
-    public String nouvelleVente();
+    public void nouvelleVente( ArticleAVendre articleAvendre);
+
+    public List<Adresse> getAdresses();
+    public List<Categorie> getCategories();
 
     public String venteRemportee();
 

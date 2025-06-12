@@ -25,6 +25,7 @@ public class ArticleAVendreImpl implements ArticleAVendreDAO {
             + " VALUES (:noArticle, :nomArticle, :description, :dateDebutEncheres, :dateFinEncheres, :statutEnchere, :prixInitial, :prixVente, :idUtilisateur, :noCategorie, :noAdresseRetrait)";
     private final String DELETE = "DELETE * FROM ARTICLES_A_VENDRE WHERE no_article =:id";
     private final String UPDATE = "UPDATE ARTICLES_A_VENDRE SET nom_article = :nomArticle, description = :description, date_debut_encheres = :dateDebutEncheres, date_fin_encheres = :dateFinEncheres, statut_enchere = :statutEnchere, prix_initial = :prixInitial, prix_vente = :prixVente, id_utilisateur = :idUtilisateur, no_categorie = :noCategorie, no_adresse_retrait = :noAdresseRetrait";
+
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
