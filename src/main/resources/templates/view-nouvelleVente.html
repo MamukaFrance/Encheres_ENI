@@ -9,43 +9,48 @@
     <form>
         <ul class="flex-outer">
             <li>
-                <label for="article">Article <span>*</span></label>
-                <input type="text" id="article">
+                <label for="inputArticle">Article <span>*</span></label>
+                <input type="text" id="inputArticle">
             </li>
             <li>
-                <label for="miseAPrix">Mise à prix <span>*</span></label>
-                <input type="number" id="miseAPrix" name="miseAPrix" min="1" max="30" value="1" step="1">
+                <label for="inputPrix">Mise à prix <span>*</span></label>
+                <input type="number" id="inputPrix" name="miseAPrix" min="1" max="30" value="1" step="1">
             </li>
             <li>
-                <label for="categorie">Catégorie <span>*</span></label>
-                <select id="categorie" name="categorie">
+                <label for="inputCategorie">Catégorie <span>*</span></label>
+                <select id="inputCategorie" name="categorie">
                     <option data-th-each="c : ${categories}" data-th-value="${c.id}"
                             data-th-text="${c.libelle}"></option>
                 </select>
             </li>
             <li>
-                <label for="debutEnchere">Début de l'enchère <span>*</span></label>
-                <input type="date" id="debutEnchere">
+                <label for="inputDebutEnchere">Début de l'enchère <span>*</span></label>
+                <input type="date" id="inputDebutEnchere">
             </li>
             <li>
-                <label for="finEnchere">Fin de l'enchère <span>*</span></label>
-                <input type="date" id="finEnchere">
+                <label for="inputDescription">Description <span>*</span></label>
+                <textarea id="inputDescription" name="Description"  rows="5" cols="33"></textarea>
             </li>
             <li>
-                <label for="retrait">Retrait <span>*</span></label>
-                <select id="retrait" name="retrait">
+                <label for="inputFinEnchere">Fin de l'enchère <span>*</span></label>
+                <input type="date" id="inputFinEnchere">
+            </li>
+            <li>
+                <label for="inputRetrait">Retrait <span>*</span></label>
+                <select id="inputRetrait" name="retrait">
                     <option data-th-each="a : ${adresses}" data-th-value="${a.id}"
-                            data-th-text="${a.rue}"></option>
+                            data-th-text="${a.rue} + ', ' + ${a.codePostal} + ', ' + ${a.ville}"></option>
                 </select>
             </li>
-
-            <li>
-                <input type="button" value="suivant">
+        </ul>
+        <ul>
+            <li class="boutons">
+                <input type="button" value="Suivant">
                 <input type="button" value="Annuler la vente">
                 <input type="button" value="Annuler">
             </li>
-        </ul>
 
+        </ul>
     </form>
 
 </main>
