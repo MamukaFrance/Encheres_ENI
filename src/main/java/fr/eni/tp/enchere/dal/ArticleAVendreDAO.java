@@ -9,9 +9,9 @@ public interface ArticleAVendreDAO {
 
     void create(ArticleAVendre articleAVendre);
 
-    ArticleAVendre articleByID(long id);
+    ArticleAVendre read(long id);
 
-    List<ArticleAVendre> articlesLst();
+    List<ArticleAVendre> readAll();
 
     void update( ArticleAVendre articleAVendre);
 

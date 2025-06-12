@@ -30,7 +30,7 @@ private UtilisateursDAO utilisateursDAO;
     // Sur la page d'accueil on demande la liste des encheres en cours, mais on veut en
     // faite la liste des objets a vendre!!(consulter enchere mais on affiche une liste d'objet a vendre)
     public List<ArticleAVendre>  consulterEncheres() {
-        List<ArticleAVendre> articlesAVendres = this.articleAVendreDAO.articlesLst();
+        List<ArticleAVendre> articlesAVendres = this.articleAVendreDAO.readAll();
 
         LocalDate aujourdHui = LocalDate.now();
 

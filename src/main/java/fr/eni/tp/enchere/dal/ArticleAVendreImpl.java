@@ -30,14 +30,14 @@ public class ArticleAVendreImpl implements ArticleAVendreDAO {
 
 
     @Override
-    public ArticleAVendre articleByID(long id) {
+    public ArticleAVendre read(long id) {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("id", id);
         return jdbcTemplate.queryForObject(FIND_BY_ID, mapSqlParameterSource, new ArticleAVendreRowMapper());
     }
 
     @Override
-    public List<ArticleAVendre> articlesLst() {
+    public List<ArticleAVendre> readAll() {
         return jdbcTemplate.query(FIND_ALL, new ArticleAVendreRowMapper());
     }
 
