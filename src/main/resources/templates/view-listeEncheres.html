@@ -15,7 +15,7 @@
             <li>
                 <label for="categorie">Catégorie :</label>
                 <select id="categorie" name="categorie">
-                    <option data-th-each="a : ${categorie}" data-th-value="${a.id}"
+                    <option data-th-each="a : ${categories}" data-th-value="${a.id}"
                             data-th-text="${a.libelle}">
             </li>
             <li>
@@ -54,5 +54,10 @@
 
 
         </form>
+
+
+
+
+
 </main>
 </html>

@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" data-th-href="@{/css/general.css}">
-    <link rel="stylesheet" data-th-href="@{/css/table.css}">
     <link rel="stylesheet" data-th-href="@{/css/layout.css}">
-    <link rel="stylesheet" data-th-href="@{/css/form.css}">
 
     <link rel="icon" data-th-href="@{/images/encheres.png}" sizes="32x32">
 
-    <title data-th-replace="${titre}">Enchères-ENI</title>
+    <title data-th-replace="${titre}">Titre à remplacer</title>
 
 </head>
 
@@ -36,15 +34,16 @@
             <li><a href="/deconnexion">Se déconnecter</a></li>
         </ul>
     </nav>
-    <div>
-        <p>Date du jour :
-            <span th:text="${T(java.time.LocalDate).now().format(T(java.time.format.DateTimeFormatter).ofPattern('dd MMMM yyyy'))}"></span>
-        </p>
-        <p>Participant :
-            <span></span>
-        </p>
-    </div>
+
 </header>
+<div class="infos">
+    <p>Date du jour :
+        <span th:text="${T(java.time.LocalDate).now().format(T(java.time.format.DateTimeFormatter).ofPattern('dd MMMM yyyy'))}"></span>
+    </p>
+    <p>Participant :
+        <span></span>
+    </p>
+</div>
 
 <main class="center-main" data-th-replace="${contenu}">
     <section class="center-section">

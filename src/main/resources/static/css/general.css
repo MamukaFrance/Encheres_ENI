@@ -36,7 +36,6 @@ header li {
 	list-style: none;
 	display: inline-block;
 	padding: 0 20px;
-	color: black;
 }
 
 header a {
@@ -79,7 +78,7 @@ main h1 {
 Module 04 - TP 2
 Remplacement de la couleur des liens par défaut à blanc*/
 header a {
-	color: black;
+	color: white;
 }
 
 /* 
