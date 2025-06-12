@@ -1,61 +1,30 @@
 @charset "UTF-8";
 
-
-/* nav ul { */
-/*   display: flex; */
-/*   justify-content: space-between; */
-/* } */
-header li {
-	list-style: none;
-	display: inline-block;
-	padding: 0 20px;
-
-}
-
 * {
 	margin: 0;
 	padding: 0;
 	font-family: Arial, Helvetica;
 }
 
-/* Header */
-header {
+body {
 	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	padding: 20px 50px;
-	box-shadow: 0 1px 8px #ddd;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 100vh;  /* garde la page pleine hauteur sans forcer l'espacement */
+	height: 100vh;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
 }
 
-#nav-title {
-	margin-right: auto;
-	font-size: 1.1em;
-}
-
-header li {
-	list-style: none;
-	display: inline-block;
-	padding: 0 20px;
-}
-
-header a {
-	text-decoration: none;
-	color: #555;
-	transition: all 0.3s ease 0s;
-}
-
-header a:hover {
-	color: rgb(0, 128, 192);
-}
-
-header img {
-	height: 20px;
-	max-width: 20px;
+h1 {
+	font-size: 1.8em;
+	text-align: center;
 }
 
 main {
 	margin-top: 15px;
 	margin-left: 15px;
+	flex-grow: 1;
 }
 
 main h1 {
@@ -74,14 +43,4 @@ main h1 {
 	text-align: center;
 }
 
-/* 
-Module 04 - TP 2
-Remplacement de la couleur des liens par défaut à blanc*/
-header a {
-	color: white;
-}
-
-/* 
-Module 04 - TP 6
-I18N*/
 #nav-title div>a>img {width: 25px;}

@@ -5,7 +5,49 @@
 <title>Nouvelle vente</title>
 
 <main>
-    <h1>Page nouvelle vente</h1>
+    <h1>Nouvelle vente</h1>
+    <form>
+        <ul class="flex-outer">
+            <li>
+                <label for="article">Article <span>*</span></label>
+                <input type="text" id="article">
+            </li>
+            <li>
+                <label for="miseAPrix">Mise à prix <span>*</span></label>
+                <input type="number" id="miseAPrix" name="miseAPrix" min="1" max="30" value="1" step="1">
+            </li>
+            <li>
+                <label for="categorie">Catégorie <span>*</span></label>
+                <select id="categorie" name="categorie">
+                    <option data-th-each="c : ${categories}" data-th-value="${a.id}"
+                            data-th-text="${a.libelle}"></option>
+                </select>
+            </li>
+            <li>
+                <label for="debutEnchere">Début de l'enchère <span>*</span></label>
+                <input type="date" id="debutEnchere">
+            </li>
+            <li>
+                <label for="finEnchere">Fin de l'enchère <span>*</span></label>
+                <input type="date" id="finEnchere">
+            </li>
+            <li>
+                <label for="retrait">Retrait <span>*</span></label>
+                <select id="retrait" name="retrait">
+                    <option data-th-each="a : ${adresses}" data-th-value="${a.no_adresse}"
+                            data-th-text="${a.rue}"></option>
+                </select>
+            </li>
+
+            <li>
+                <input type="button" value="suivant">
+                <input type="button" value="Annuler la vente">
+                <input type="button" value="Annuler">
+            </li>
+        </ul>
+
+    </form>
+
 </main>
 
 </html>

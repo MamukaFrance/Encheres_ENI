@@ -1,20 +1,70 @@
-body {
+/***********
+** Header **
+***********/
+
+header li {
+    list-style: none;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+header a {
+    text-decoration: none;
+    color: whitesmoke;
+    transition: all 0.3s ease 0s;
+}
+
+header a:hover {
+    color: rgb(0, 128, 192);
+}
+
+header img {
+    height: 20px;
+    max-width: 20px;
+}
+
+/* Zone Nav */
+.header-nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: burlywood;
+    box-shadow: 0 1px 8px #ddd;
+}
+
+nav li {
+    font-size: 1em;
+    background-color: black ;
+    color: white;
+    border-radius: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#nav-title {
+    margin-right: auto;
+    font-size: 1.1em;
+}
+
+/* Zone infos */
+.header-infos {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
+    align-items: flex-start;  /* pour coller le texte à gauche dans la boîte */
+    border-width: 4px;
+    border-radius: 10px;
+    border-style: solid;
+    padding: 10px;
+    margin-left: auto;        /* pour coller le bloc à droite */
+    margin-right: 20px;
+    margin-top: 10px;         /* petit espace sous la barre de nav */
+    width: fit-content;
 }
 
-header {
-    padding: 5px;
-    background-color: burlywood;
-}
-
-h1 {
-    font-size: 1.8em;
-}
+/***********
+** Footer **
+***********/
 
 footer {
     background-color: #777;
@@ -24,15 +74,4 @@ footer {
     height: auto;
 }
 
-nav li {
-    font-size: 1em;
-    background-color: black ;
-    color: white;
-    border-radius: 10px;
-}
 
-.infos {
-    border-width: 2px;
-    border-radius: 10px;
-
-}
