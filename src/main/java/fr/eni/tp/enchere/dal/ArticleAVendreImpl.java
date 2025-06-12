@@ -107,7 +107,7 @@ public class ArticleAVendreImpl implements ArticleAVendreDAO {
             a.setRetrait(retrait);
 
             Utilisateur vendeur = new Utilisateur();
-            vendeur.setPseudo(rs.getString("pseudo"));
+            vendeur.setPseudo(rs.getString("id_utilisateur"));
             a.setVendeur(vendeur);
 
             Categorie categorie = new Categorie();

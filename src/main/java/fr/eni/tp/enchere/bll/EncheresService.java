@@ -11,7 +11,7 @@ public interface EncheresService {
 
     public List<ArticleAVendre> consulterEncheres();
 
-    public String voirEnchere();
+    public ArticleAVendre voirEnchere(Long id);
 
     public void nouvelleVente( ArticleAVendre articleAvendre);
 

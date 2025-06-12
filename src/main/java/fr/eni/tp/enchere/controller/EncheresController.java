@@ -31,10 +31,8 @@ public class EncheresController {
     // faite la liste des objets a vendre!!(consulter enchere mais on affiche une liste d'objet a vendre)
     @GetMapping
     public String consulterEncheres(Model model) {
-
-        List<ArticleAVendre> listArticleavendre = this.encheresService.consulterEncheres();
-        model.addAttribute("articles", listArticleavendre);
-
+        List<ArticleAVendre> articleAVendres = this.encheresService.consulterEncheres();
+        model.addAttribute("articles", articleAVendres);
         return "view-listeEncheres";
     }
 

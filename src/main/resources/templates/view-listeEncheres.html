@@ -11,13 +11,13 @@
             <li>
                 <label for="filtres">Filtres :</label>
                 <input type="text" id="filtres" placeholder="Le nom de l'article contient"
-                       data-th-field="${ArticleAVendre.nom}">
+                      >
             </li>
             <li>
                 <label for="categorie">Catégorie :</label>
                 <select id="categorie" name="categorie">
                     <option data-th-each="a : ${categories}" data-th-value="${a.id}"
-                            data-th-text="${a.libelle}">
+                            data-th-text="${a.libelle}"></option></select>
             </li>
             <li>
                 <input type="submit" value="Rechercher">
@@ -27,8 +27,8 @@
         <ul>
             <li>
                 <div>
-                    <label>
-                        <input type="radio" id="achatsVentes" name="Achats">
+                    <label for="inputAchats">
+                        <input type="radio" id="inputAchats" name="Achats">
                         Achats
                     </label>
                     <select>
@@ -39,8 +39,8 @@
                 </div>
 
                 <div>
-                    <label>
-                        <input type="radio" id="achatsVentes" name="Ventes">
+                    <label for="inputVentes">
+                        <input type="radio" id="inputVentes" name="Ventes">
                         Mes ventes
                     </label>
                     <select>
@@ -52,9 +52,14 @@
 
             </li>
         </ul>
-
-
         </form>
+    <ul class="flex-outer" data-th-each="article : ${articles}">
+        <li data-th-text="${article.nom}"></li>
+        <li data-th-text="${article.prixVente}"></li>
+        <li data-th-text="${article.dateFinEncheres}"></li>
+        <li data-th-text="${article.vendeur.pseudo}"></li>
+    </ul>
+
 
 
 
