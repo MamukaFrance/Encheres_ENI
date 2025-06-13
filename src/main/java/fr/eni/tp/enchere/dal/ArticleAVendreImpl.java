@@ -21,9 +21,12 @@ import java.util.List;
 public class ArticleAVendreImpl implements ArticleAVendreDAO {
     private final String FIND_BY_ID = "SELECT * FROM ARTICLES_A_VENDRE WHERE no_article =:id";
     private final String FIND_ALL = "SELECT * FROM ARTICLES_A_VENDRE";
-    private final String INSERT = "INSERT INTO ARTICLES_A_VENDRE (no_article, nom_article, description, date_debut_encheres, date_fin_encheres, statut_enchere, prix_initial, prix_vente, id_utilisateur, no_categorie, no_adresse_retrait)"
-            + " VALUES (:noArticle, :nomArticle, :description, :dateDebutEncheres, :dateFinEncheres, :statutEnchere, :prixInitial, :prixVente, :idUtilisateur, :noCategorie, :noAdresseRetrait)";
-    private final String DELETE = "DELETE * FROM ARTICLES_A_VENDRE WHERE no_article =:id";
+
+    //enlever l'id pour la création on a un keyholder
+    private final String INSERT = "INSERT INTO ARTICLES_A_VENDRE (nom_article, description, date_debut_encheres, date_fin_encheres, statut_enchere, prix_initial, prix_vente, id_utilisateur, no_categorie, no_adresse_retrait)"
+            + " VALUES (:nomArticle, :description, :dateDebutEncheres, :dateFinEncheres, :statutEnchere, :prixInitial, :prixVente, :idUtilisateur, :noCategorie, :noAdresseRetrait)";
+    // attention faut enlever le * pour le delete
+    private final String DELETE = "DELETE FROM ARTICLES_A_VENDRE WHERE no_article =:id";
     private final String UPDATE = "UPDATE ARTICLES_A_VENDRE SET nom_article = :nomArticle, description = :description, date_debut_encheres = :dateDebutEncheres, date_fin_encheres = :dateFinEncheres, statut_enchere = :statutEnchere, prix_initial = :prixInitial, prix_vente = :prixVente, id_utilisateur = :idUtilisateur, no_categorie = :noCategorie, no_adresse_retrait = :noAdresseRetrait";
 
     @Autowired
@@ -47,19 +50,21 @@ public class ArticleAVendreImpl implements ArticleAVendreDAO {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("noArticle",articleAVendre.getId());
-        parameterSource.addValue("nomArticle",articleAVendre.getNom());
-        parameterSource.addValue("description",articleAVendre.getDescription());
-        parameterSource.addValue("dateDebutEncheres",articleAVendre.getDateDebutEncheres());
-        parameterSource.addValue("dateFinEncheres",articleAVendre.getDateFinEncheres());
-        parameterSource.addValue("statutEnchere",articleAVendre.getStatut());
-        parameterSource.addValue("prixInitial",articleAVendre.getPrixInitial());
-        parameterSource.addValue("prixVente",articleAVendre.getPrixVente());
-        parameterSource.addValue("idUtilisateur",articleAVendre.getVendeur());
-        parameterSource.addValue("noCategorie",articleAVendre.getCategorie());
-        parameterSource.addValue("noAdresseRetrait",articleAVendre.getRetrait());
+        parameterSource.addValue("nomArticle", articleAVendre.getNom());
+        parameterSource.addValue("description", articleAVendre.getDescription());
+        parameterSource.addValue("dateDebutEncheres", articleAVendre.getDateDebutEncheres());
+        parameterSource.addValue("dateFinEncheres", articleAVendre.getDateFinEncheres());
+        parameterSource.addValue("statutEnchere", articleAVendre.getStatut());
+        parameterSource.addValue("prixInitial", articleAVendre.getPrixInitial());
+        parameterSource.addValue("prixVente", articleAVendre.getPrixVente());
+        parameterSource.addValue("idUtilisateur", articleAVendre.getVendeur().getPseudo());
+        parameterSource.addValue("noCategorie", articleAVendre.getCategorie().getId());
+        parameterSource.addValue("noAdresseRetrait", articleAVendre.getRetrait().getId());
 
-        jdbcTemplate.update(INSERT,parameterSource,keyHolder);
+        jdbcTemplate.update(INSERT, parameterSource, keyHolder, new String[] { "no_article" });
+
+        // j'ai changé car on ne doit pas mettre l'id en création
+        articleAVendre.setId(keyHolder.getKey().longValue());
     }
 
 
