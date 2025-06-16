@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -49,11 +50,12 @@ public class EncheresController {
       return "view-nouvelleVente";
     }
     @PostMapping("/nouvelle-vente")
-    public String nouvelleVente(@ModelAttribute("articleAvendre") ArticleAVendre articleAvendre) {
+    public String nouvelleVente(@Valid @ModelAttribute("articleAvendre") ArticleAVendre articleAvendre, BindingResult result, Model model) {
 
-               // @ModelAttribute("membreEnSession") Membre membreEnSession)
 
         encheresService.nouvelleVente(articleAvendre);
+// on doit rajouter le vendeur avec le pseudo
+
 
         return "redirect:/detail-vente";
     }
@@ -68,8 +70,13 @@ public class EncheresController {
         return "view-detailVente";
     }
 
-    @GetMapping("ajouter-photo")
+    @GetMapping("ajouter_photo")
     public String ajouterPhoto() {
         return "view-ajouterPhoto";
+    }
+
+    @GetMapping("/change-password")
+    public String changePassword(){
+      return "view-changerMotDePasse";
     }
 }

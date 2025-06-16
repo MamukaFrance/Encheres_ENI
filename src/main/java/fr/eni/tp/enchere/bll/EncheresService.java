@@ -23,4 +23,8 @@ public interface EncheresService {
     public String detailVente();
 
     public String ajouterPhoto();
+
+    Adresse getAdresseById(long id);
+
+    Categorie getCategoriesById(long id);
 }

@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UtilisateursDAOImpl implements UtilisateursDAO{
 
@@ -80,6 +82,15 @@ public class UtilisateursDAOImpl implements UtilisateursDAO{
         jdbcTemplate.update(UPDATE, namedParameters);
     }
 
+    @Override
+    public List<Utilisateur> readAll() {
+        return List.of();
+    }
+
+    @Override
+    public Utilisateur create(Utilisateur utilisateur) {
+        return null;
+    }
 
 
 }

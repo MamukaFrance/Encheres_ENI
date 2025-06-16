@@ -1,12 +1,11 @@
 package fr.eni.tp.enchere.bll;
 
 import fr.eni.tp.enchere.bo.Utilisateur;
-import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-@Service
-public interface UtilisateurService {
+public interface UtilisateurService extends UserDetailsService {
     List<Utilisateur> getAll();
 
     Utilisateur get(String pseudo);
@@ -17,5 +16,5 @@ public interface UtilisateurService {
 
     void delete(String pseudo);
 
-    Utilisateur registerNewUser(Utilisateur personne);
+    Utilisateur registerNewUser(Utilisateur utilisateur);
 }

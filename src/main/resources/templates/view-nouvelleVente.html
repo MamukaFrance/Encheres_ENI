@@ -6,15 +6,19 @@
 
 <main>
     <h1>Nouvelle vente</h1>
-    <form>
+    <form action="/nouvelle-vente"  method="post" data-th-object="${articleAvendre}">
         <ul class="flex-outer">
             <li>
-                <label for="article">Article <span>*</span></label>
-                <input type="text" id="article">
+                <label for="nom_article"> Nom d'article <span>*</span></label>
+                <input type="text" id="nom_article" data-th-field="*{nom}">
             </li>
             <li>
-                <label for="miseAPrix">Mise à prix <span>*</span></label>
-                <input type="number" id="miseAPrix" name="miseAPrix" min="1" max="30" value="1" step="1">
+                <label for="description"> Description <span>*</span></label>
+                <textarea  id="description" data-th-field="*{description}"></textarea>
+            </li>
+            <li>
+                <label for="prix_initial">Mise à prix <span>*</span></label>
+                <input type="number" id="prix_initial" name="miseAPrix" min="1" max="30" value="1" step="1" data-th-field="*{prixInitial}">
             </li>
             <li>
                 <label for="categorie">Catégorie <span>*</span></label>
@@ -24,12 +28,12 @@
                 </select>
             </li>
             <li>
-                <label for="debutEnchere">Début de l'enchère <span>*</span></label>
-                <input type="date" id="debutEnchere">
+                <label for="date_debut_encheres">Début de l'enchère <span>*</span></label>
+                <input type="date" id="date_debut_encheres" data-th-field="*{dateDebutEncheres}">
             </li>
             <li>
-                <label for="finEnchere">Fin de l'enchère <span>*</span></label>
-                <input type="date" id="finEnchere">
+                <label for="date_fin_encheres">Fin de l'enchère <span>*</span></label>
+                <input type="date" id="date_fin_encheres" data-th-field="*{dateFinEncheres}">
             </li>
             <li>
                 <label for="retrait">Retrait <span>*</span></label>
@@ -40,6 +44,7 @@
             </li>
 
             <li>
+                <input type="submit" value="Valider">
                 <input type="button" value="suivant">
                 <input type="button" value="Annuler la vente">
                 <input type="button" value="Annuler">

@@ -1,15 +1,29 @@
 package fr.eni.tp.enchere.bo;
 
-public class Utilisateur {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+public class Utilisateur implements UserDetails {
     private String pseudo;
     private String nom;
     private String prenom;
+    private Collection<? extends GrantedAuthority> authorities = Collections.emptyList();
     private String email;
     private String telephone;
     private String motDePasse;
     private int credit;
     private boolean admin;
     private Adresse adresse;
+
+    public Utilisateur(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.email = username;
+        this.motDePasse = password;
+        this.authorities = authorities;
+    }
 
     public Utilisateur() {
     }
@@ -84,5 +98,20 @@ public class Utilisateur {
 
     public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return motDePasse;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 }
