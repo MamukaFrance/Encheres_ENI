@@ -54,10 +54,10 @@
         </ul>
         </form>
     <ul class="flex-outer" data-th-each="article : ${articles}">
-        <li data-th-text="${article.nom}"></li>
+        <a data-th-href="@{/detail-vente(id=${article.id})}"><li data-th-text="${article.nom}"></li></a>
         <li data-th-text="${article.prixVente}"></li>
         <li data-th-text="${article.dateFinEncheres}"></li>
-        <li data-th-text="${article.vendeur.pseudo}"><a></a></li>
+        <li data-th-text="${article.vendeur.pseudo}"></li>
     </ul>
 
 

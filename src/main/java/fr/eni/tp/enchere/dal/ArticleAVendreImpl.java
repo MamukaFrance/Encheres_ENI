@@ -63,8 +63,7 @@ public class ArticleAVendreImpl implements ArticleAVendreDAO {
 
         jdbcTemplate.update(INSERT, parameterSource, keyHolder, new String[] { "no_article" });
 
-        // j'ai changé car on ne doit pas mettre l'id en création
-        articleAVendre.setId(keyHolder.getKey().longValue());
+
     }
 
 

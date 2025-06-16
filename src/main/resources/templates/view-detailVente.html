@@ -2,10 +2,59 @@
 <html lang="fr" data-th-replace="~{file-layout::layout(contenu=~{::main},titre=~{::title})}"
       xmlns:th="http://www.thymeleaf.org">
 
-<title>Détails de la vente</title>
+<title>Detail de vente</title>
 
 <main>
-    <h1>Page de détail d'une vente</h1>
+    <h1>Details de la vente</h1>
+   <input type="hidden" data-th-href="@{/edit(id=${articleAVendre.id})}">
+
+    <form action="/"  method="post" data-th-object="${articleAVendre}">
+        <ul class="flex-outer">
+            <li>
+                <label for="nom_article"> Nom d'article <span>*</span></label>
+                <input type="text" id="nom_article" data-th-field="*{nom}">
+            </li>
+            <li>
+                <label for="description"> Description <span>*</span></label>
+                <textarea  id="description" data-th-field="*{description}"></textarea>
+            </li>
+            <li>
+                <label for="prix_initial">Mise à prix <span>*</span></label>
+                <input type="number" id="prix_initial" name="miseAPrix" min="1" max="30" value="1" step="1" data-th-field="*{prixInitial}">
+            </li>
+            <li>
+                <label for="categorie">Catégorie <span>*</span></label>
+                <select id="categorie" name="categorie">
+                    <option data-th-each="c : ${categories}" data-th-value="${c.id}"
+                            data-th-text="${c.libelle}"></option>
+                </select>
+            </li>
+            <li>
+                <label for="date_debut_encheres">Début de l'enchère <span>*</span></label>
+                <input type="date" id="date_debut_encheres"  th:value="${dateDebutEncheres}">
+            </li>
+            <li>
+                <label for="date_fin_encheres">Fin de l'enchère <span>*</span></label>
+                <input type="date" id="date_fin_encheres"  th:value="${dateFinEncheres}">
+            </li>
+            <li>
+                <label for="retrait">Retrait <span>*</span></label>
+                <select id="retrait" name="retrait">
+                    <option data-th-each="a : ${adresses}" data-th-value="${a.id}"
+                            data-th-text="${a.rue}"></option>
+                </select>
+            </li>
+
+            <li>
+
+
+                <button>  <a class="retour" href="/" > Retour </a></button>
+
+            </li>
+        </ul>
+
+    </form>
+
 </main>
 
 </html>

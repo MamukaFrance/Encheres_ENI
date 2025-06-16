@@ -59,6 +59,7 @@ public class SecurityConfiguration {
                     auth.requestMatchers(HttpMethod.GET,"/nouvelle-vente").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/vente-remportee").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/change-password").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/detail-vente").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/").permitAll();
 
                     // il n'y a que l'eleveur qui peut modifier les moutons

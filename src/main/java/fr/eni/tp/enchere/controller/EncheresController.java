@@ -13,6 +13,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,12 +22,12 @@ import java.util.List;
 public class EncheresController {
 
 
-   private final EncheresService encheresService;
+    private final EncheresService encheresService;
 
-  @Autowired
-  public EncheresController(EncheresService encheresService) {
-      this.encheresService = encheresService;
-   }
+    @Autowired
+    public EncheresController(EncheresService encheresService) {
+        this.encheresService = encheresService;
+    }
 
     // Sur la page d'accueil on demande la liste des encheres en cours, mais on veut en
     // faite la liste des objets a vendre!!(consulter enchere mais on affiche une liste d'objet a vendre)
@@ -47,8 +48,9 @@ public class EncheresController {
         model.addAttribute("articleAvendre", new ArticleAVendre());
         model.addAttribute("categories", encheresService.getCategories());
         model.addAttribute("adresses", encheresService.getAdresses());
-      return "view-nouvelleVente";
+        return "view-nouvelleVente";
     }
+
     @PostMapping("/nouvelle-vente")
     public String nouvelleVente(@Valid @ModelAttribute("articleAvendre") ArticleAVendre articleAvendre, BindingResult result, Model model) {
 
@@ -65,10 +67,21 @@ public class EncheresController {
         return "view-venteRemportee";
     }
 
-    @GetMapping("detail-vente")
-    public String detailVente() {
+    @GetMapping("/detail-vente")
+    public String detailVente(@RequestParam(name = "id", required = true) long id, Model model) {
+
+
+        ArticleAVendre articleAVendre = this.encheresService.voirEnchere(id);
+        model.addAttribute("categories", encheresService.getCategoriesById(articleAVendre.getCategorie().getId()));
+        model.addAttribute("adresses", encheresService.getAdresseById(articleAVendre.getRetrait().getId()));
+        model.addAttribute("dateDebutEncheres", articleAVendre.getDateDebutEncheres());
+        model.addAttribute("dateFinEncheres", articleAVendre.getDateFinEncheres());
+
+        model.addAttribute("articleAVendre", articleAVendre);
         return "view-detailVente";
+
     }
+
 
     @GetMapping("ajouter_photo")
     public String ajouterPhoto() {
