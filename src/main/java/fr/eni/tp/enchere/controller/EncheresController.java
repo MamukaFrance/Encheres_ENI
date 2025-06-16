@@ -70,8 +70,13 @@ public class EncheresController {
         return "view-detailVente";
     }
 
-    @GetMapping("ajouter-photo")
+    @GetMapping("ajouter_photo")
     public String ajouterPhoto() {
         return "view-ajouterPhoto";
+    }
+
+    @GetMapping("/change-password")
+    public String changePassword(){
+      return "view-changerMotDePasse";
     }
 }
