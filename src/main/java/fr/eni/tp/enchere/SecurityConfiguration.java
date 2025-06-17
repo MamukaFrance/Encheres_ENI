@@ -84,6 +84,7 @@ public class SecurityConfiguration {
                 .formLogin(f ->
                         f.loginPage("/login")
                                 .permitAll()
+                                .defaultSuccessUrl("/", true)  // redirige vers /home après connexion
                 )
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
