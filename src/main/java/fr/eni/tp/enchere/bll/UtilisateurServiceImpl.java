@@ -39,6 +39,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
 
+
     @Override
     public List<Utilisateur> getAll() {
         return utilisateursDAO.readAll();

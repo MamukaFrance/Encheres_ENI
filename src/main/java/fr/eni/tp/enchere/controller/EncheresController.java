@@ -1,11 +1,14 @@
 package fr.eni.tp.enchere.controller;
 
 import fr.eni.tp.enchere.bll.EncheresService;
+import fr.eni.tp.enchere.bll.UtilisateurServiceImpl;
 import fr.eni.tp.enchere.bo.ArticleAVendre;
 import fr.eni.tp.enchere.bo.Enchere;
+import fr.eni.tp.enchere.bo.Utilisateur;
 import fr.eni.tp.enchere.dal.ArticleAVendreDAO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,14 +55,17 @@ public class EncheresController {
     }
 
     @PostMapping("/nouvelle-vente")
-    public String nouvelleVente(@Valid @ModelAttribute("articleAvendre") ArticleAVendre articleAvendre, BindingResult result, Model model) {
+    public String nouvelleVente(@Valid @ModelAttribute("articleAvendre") ArticleAVendre articleAvendre, BindingResult result, Model model, Authentication authentication) {
+        Utilisateur personneConnecte = null;
+        var principal = authentication.getPrincipal();
+        personneConnecte = (Utilisateur) principal;
 
-
+        articleAvendre.setVendeur(personneConnecte);
         encheresService.nouvelleVente(articleAvendre);
 // on doit rajouter le vendeur avec le pseudo
+ var nouvelleid=articleAvendre.getId();
 
-
-        return "redirect:/detail-vente";
+        return "redirect:/detail-vente?id="+nouvelleid;
     }
 
     @GetMapping("/vente-remportee")
@@ -89,7 +95,7 @@ public class EncheresController {
     }
 
     @GetMapping("/change-password")
-    public String changePassword(){
-      return "view-changerMotDePasse";
+    public String changePassword() {
+        return "view-changerMotDePasse";
     }
 }

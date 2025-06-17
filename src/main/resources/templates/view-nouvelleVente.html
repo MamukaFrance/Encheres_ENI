@@ -10,7 +10,7 @@
 
         <ul class="flex-outer">
             <!-- <input type="hidden" data-th-text="${#authentication.name}"  data-th-field="*{vendeur}"> -->
-            <input type="hidden" data-th-name="vendeur" data-th-value="${#authentication.name}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <li>
                 <label for="nom_article"> Nom d'article <span>*</span></label>
                 <input type="text" id="nom_article" data-th-field="*{nom}">

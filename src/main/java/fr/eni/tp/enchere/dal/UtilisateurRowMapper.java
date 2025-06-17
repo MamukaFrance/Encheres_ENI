@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-    class UtilisateurRowMapper implements RowMapper<Utilisateur> {
+  public  class UtilisateurRowMapper implements RowMapper<Utilisateur> {
 
         public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
             Utilisateur f = new Utilisateur();

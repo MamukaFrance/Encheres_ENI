@@ -41,7 +41,7 @@ public class CategorieDAOImpl implements CategorieDAO{
         namedParameters.addValue("idCategorie", id);
 
         return jdbcTemplate.queryForObject(READ, namedParameters,
-                new BeanPropertyRowMapper<>(Categorie.class));
+                new CategorieRowMapper());
     }
 
     @Override
@@ -62,6 +62,6 @@ public class CategorieDAOImpl implements CategorieDAO{
     @Override
     public List<Categorie> readAll() {
 
-        return jdbcTemplate.query(READ_ALL, new BeanPropertyRowMapper<>(Categorie.class));
+        return jdbcTemplate.query(READ_ALL, new CategorieRowMapper());
     }
 }
