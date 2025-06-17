@@ -10,8 +10,7 @@
         <ul class="flex-outer">
             <li>
                 <label for="filtres">Filtres :</label>
-                <input type="text" id="filtres" placeholder="Le nom de l'article contient"
-                      >
+                <input type="text" id="filtres" placeholder="Le nom de l'article contient">
             </li>
             <li>
                 <label for="categorie">Catégorie :</label>
@@ -20,44 +19,42 @@
                             data-th-text="${a.libelle}"></option></select>
             </li>
             <li>
-                <input type="submit" value="Rechercher">
-                <input type="reset" value="Annuler">
+                <input class="btnValid" type="submit" value="Rechercher">
+                <input class="btnAnnul" type="reset" value="Annuler">
             </li>
         </ul>
         <ul>
-            <li>
-                <div>
-                    <label for="inputAchats">
-                        <input type="radio" id="inputAchats" name="Achats">
-                        Achats
-                    </label>
-                    <select>
-                    <option>Enchères ouvertes</option>
+            <div class="listeDeroulantes">
+                <label for="inputAchats">
+                    <input type="radio" id="inputAchats" name="Achats">
+                    Achats
+                </label>
+                <select>
+                    <option disabled selected> -- Enchères ouvertes -- </option>
                     <option value="en_cours">Mes enchères en cours</option>
                     <option value="remportees">Mes enchères remportées</option>
-                    </select>
-                </div>
+                </select>
+            </div>
 
-                <div>
-                    <label for="inputVentes">
-                        <input type="radio" id="inputVentes" name="Ventes">
-                        Mes ventes
-                    </label>
-                    <select>
-                        <option>Mes ventes en cours</option>
-                        <option value="non_debutees">Mes ventes non débutées</option>
-                        <option value="terminees">Mes ventes terminées</option>
-                    </select>
-                </div>
-
-            </li>
+            <div>
+                <label for="inputVentes">
+                    <input type="radio" id="inputVentes" name="Ventes">
+                    Mes ventes
+                </label>
+                <select>
+                    <option disabled selected> -- Mes ventes en cours -- </option>
+                    <option value="non_debutees">Mes ventes non débutées</option>
+                    <option value="terminees">Mes ventes terminées</option>
+                </select>
+            </div>
         </ul>
-        </form>
-    <ul class="flex-outer" data-th-each="article : ${articles}">
+    </form>
+
+    <ul class="flex-outer cartes" data-th-each="article : ${articles}">
         <a data-th-href="@{/detail-vente(id=${article.id})}"><li data-th-text="${article.nom}"></li></a>
-        <li data-th-text="${article.prixVente}"></li>
-        <li data-th-text="${article.dateFinEncheres}"></li>
-        <li data-th-text="${article.vendeur.pseudo}"></li>
+        <li data-th-text="'Prix : ' + ${article.prixVente}"></li>
+        <li data-th-text="'Fin de l\'enchère : ' + ${article.dateFinEncheres}"></li>
+        <li data-th-text="'Vendeur : ' + ${article.vendeur.pseudo}"></li>
     </ul>
 
 
