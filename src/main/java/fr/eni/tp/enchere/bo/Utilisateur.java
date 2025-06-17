@@ -15,7 +15,7 @@ public class Utilisateur implements UserDetails {
     private String email;
     private String telephone;
     private String motDePasse;
-    private int credit;
+    private int credit =10;
     private boolean admin;
     private Adresse adresse;
 

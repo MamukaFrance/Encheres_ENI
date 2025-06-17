@@ -24,12 +24,15 @@
 
     <nav>
         <ul>
-            <li><a href="/accueil">Accueil</a></li>
+            <li><a href="/">Accueil</a></li>
             <th:block data-th-if="${!#authorization.expression('isAuthenticated()')}">
                 <li><a href="/inscript_connect">S'inscrire/se connecter</a></li>
             </th:block>
             <li><a href="/vendreArticle">Vendre un article</a></li>
-            <li><a href="/profil">Mon profil</a></li>
+            <th:block data-th-if="${#authorization.expression('isAuthenticated()')}">
+                <li><a href="/profil">Mon profil</a></li>
+            </th:block>
+
             <th:block data-th-if="${#authorization.expression('isAuthenticated()')}">
 
                 <li><a href="/logout">Se déconnecter</a></li>
@@ -43,9 +46,12 @@
         <p>Date du jour :
             <span th:text="${T(java.time.LocalDate).now().format(T(java.time.format.DateTimeFormatter).ofPattern('dd MMMM yyyy'))}"></span>
         </p>
-        <p>Participant :
-            <span data-th-text="${#authentication.name}"></span>
-        </p>
+        <th:block data-th-if="${#authorization.expression('isAuthenticated()')}">
+            <p>Participant :
+                <span data-th-text="${#authentication.name}"></span>
+            </p>
+        </th:block>
+
     </div>
 
 </header>

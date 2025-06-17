@@ -13,7 +13,7 @@
 </th:block>
 
   <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-    <h1 th:text="'Profil de ' + ${principal.username}"></h1>
+    <h1 th:text="'Profil de ' + ${profil.pseudo}"></h1>
   </th:block>
 
   <ul class="flex-outer">
@@ -39,9 +39,9 @@
     </li>
     <li class="adresse">
       <label for="inputAdresse">Adresse : <span>*</span></label>
-      <input placeholder="Rue" type="text" id="inputAdresse" th:field="${profil.adresse.rue}" required>
-      <input placeholder="Code Postal" type="text" th:field="${profil.adresse.codePostal}" required>
-      <input placeholder="Ville" type="text" th:field="${profil.adresse.ville}" required>
+      <input placeholder="Rue" type="text" id="inputAdresse" th:field="${adresse.rue}" required>
+      <input placeholder="Code Postal" type="text" th:field="${adresse.codePostal}" required>
+      <input placeholder="Ville" type="text" th:field="${adresse.ville}" required>
     </li>
     <li>
       <label for="inputMotDePasse">Mot De Passe : <span>*</span></label>
