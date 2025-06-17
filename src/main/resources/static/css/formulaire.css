@@ -2,7 +2,10 @@
 
 form {
 	background-color: #f2f2f2;
+	margin: 0 15vw;
 	padding: 20px 5vw; /* 5% de la largeur de l'écran de chaque côté */
+	border-radius: 20px;
+
 }
 
 form h1 {
@@ -22,7 +25,10 @@ form h1 {
 	flex: 1 1 40%;
 	flex-wrap: wrap;
 	align-items: center;
-	margin: 5px;
+	margin: 15px 10px;
+}
+.flex-outer span {
+	color: red;
 }
 
 .flex-outer>li>label {
@@ -44,8 +50,43 @@ form h1 {
 	text-transform: uppercase;
 	letter-spacing: .09em;
 	border-radius: 2px;
+
 }
 
 .flex-outer>li select {
 	flex: 1 0 160px;
+}
+ul.boutons {
+	display: flex;
+	justify-content: center;
+	list-style: none;
+	margin-top: 20px;
+}
+
+.boutons li input {
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 1.2em;
+	padding: 5px;
+	margin: 5px 5px;
+}
+
+.boutons li input#btn1,
+.boutons li input#btn2 {
+	background-color: #426c13;
+}
+
+.boutons li input#btn1:hover,
+.boutons li input#btn2:hover {
+	background-color: #568f17;
+}
+
+.boutons li input#btn3,
+.boutons li input#btn4 {
+	background-color: darkred;
+}
+
+.boutons li input#btn3:hover,
+.boutons li input#btn4:hover {
+	background-color: red;
 }

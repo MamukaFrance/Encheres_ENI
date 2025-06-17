@@ -9,9 +9,8 @@
     <form action="/nouvelle-vente" method="post" data-th-object="${articleAvendre}">
 
         <ul class="flex-outer">
-            <li>
-                <input type="hidden" data-th-text="${#authentication.name}"  data-th-field="*{vendeur}">
-            </li>
+            <!-- <input type="hidden" data-th-text="${#authentication.name}"  data-th-field="*{vendeur}"> -->
+            <input type="hidden" data-th-name="vendeur" data-th-value="${#authentication.name}">
             <li>
                 <label for="nom_article"> Nom d'article <span>*</span></label>
                 <input type="text" id="nom_article" data-th-field="*{nom}">
@@ -40,19 +39,22 @@
                 <label for="date_fin_encheres">Fin de l'enchère <span>*</span></label>
                 <input type="date" id="date_fin_encheres" data-th-field="*{dateFinEncheres}">
             </li>
+            </ul>
+        <ul class="flex-outer">
             <li>
                 <label for="retrait">Retrait <span>*</span></label>
                 <select id="retrait" name="retrait">
                     <option data-th-each="a : ${adresses}" data-th-value="${a.id}"
-                            data-th-text="${a.rue}"></option>
+                            data-th-text="${a.rue} + ', ' + ${a.codePostal} + ' ' + ${a.ville}"></option>
                 </select>
             </li>
-
+            </ul>
+        <ul class="boutons">
             <li>
-                <input type="submit" value="Valider">
-                <input type="button" value="suivant">
-                <input type="button" value="Annuler la vente">
-                <input type="button" value="Annuler">
+                <input id="btn1" type="submit" value="Valider">
+                <input id="btn2" type="button" value="Suivant">
+                <input id="btn3" type="button" value="Annuler la vente">
+                <input id="btn4" type="button" value="Annuler">
             </li>
         </ul>
 
