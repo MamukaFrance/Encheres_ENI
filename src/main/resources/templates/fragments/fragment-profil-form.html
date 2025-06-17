@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr" data-th-replace="~{file-layout::layout(contenu=~{::main},titre=~{::title})}"
+      xmlns:th="http://www.thymeleaf.org">
+
+<title data-th-text=""></title>
+<main>
+
+<form data-th-fragment="frag-profil-form(titreForm, action, profil)"  th:action="@{${action}}" method="post" >
+
+
+<th:block th:if="${membreEnSession == null}">
+  <h1>Nouveau Profil</h1>
+</th:block>
+
+  <th:block th:if="${membreEnSession != null}">
+    <h1 th:text="'Profil de ' + ${membreEnSession.nom}"></h1>
+  </th:block>
+
+  <ul class="flex-outer">
+    <li>
+      <label for="inputPseudo">Pseudo :</label>
+      <input type="text" id="inputPseudo" th:field="${profil.pseudo}" required>
+    </li>
+    <li>
+      <label for="inputNom">Nom :</label>
+      <input type="text" id="inputNom" th:field="${profil.nom}" required>
+    </li>
+    <li>
+      <label for="inputPrenom">Prénom :</label>
+      <input type="text" id="inputPrenom" th:field="${profil.prenom}" required>
+    </li>
+    <li>
+      <label for="inputEmail">Email :</label>
+      <input type="email" id="inputEmail" th:field="${profil.email}" required>
+    </li>
+    <li>
+      <label for="inputTelephone">Téléphone :</label>
+      <input type="tel" id="inputTelephone" th:field="${profil.telephone}" >
+    </li>
+    <li class="adresse">
+      <label for="inputAdresse">Adresse :</label>
+      <input placeholder="Rue" type="text" id="inputAdresse" th:field="${profil.adresse.rue}" required>
+      <input placeholder="Code Postal" type="text" th:field="${profil.adresse.codePostal}" required>
+      <input placeholder="Ville" type="text" th:field="${profil.adresse.ville}" required>
+    </li>
+    <li>
+      <label for="inputMotDePasse">Mot De Passe :</label>
+      <input type="password" id="inputMotDePasse" required>
+    </li>
+    <li>
+      <label for="inputMotDePasseConfirmation">Confirmer mot De Passe :</label>
+      <input type="password" id="inputMotDePasseConfirmation"  required>
+    </li>
+  </ul>
+
+  <div class="boutons" hidden="true">
+    <button type="submit" >Créer</button>
+    <button type="reset">Annuler</button>
+  </div>
+
+
+
+</form>
+</main>

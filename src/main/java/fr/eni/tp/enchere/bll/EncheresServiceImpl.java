@@ -81,4 +81,14 @@ public class EncheresServiceImpl implements EncheresService {
     public String ajouterPhoto() {
         return "";
     }
+
+    @Override
+    public Adresse getAdresseById(long id) {
+        return adresseDAO.readAdresseByID(id);
+    }
+
+    @Override
+    public Categorie getCategoriesById(long id) {
+        return categorieDAO.read(id);
+    }
 }

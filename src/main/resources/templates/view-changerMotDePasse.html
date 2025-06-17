@@ -5,7 +5,28 @@
 <title>Changer mot de passe</title>
 
 <main>
-    <h1>Page du changement de mot de passe</h1>
+    <h1>Modifier mon mot de passe</h1>
+    <form>
+        <ul class="flex-outer" style="display: block; width: 50%; margin: 0 auto">
+            <li>
+                <label for="inputCurrentPassword">Mot de passe actuel (*) : </label>
+                <input name="currentPassword" type="text" id="inputCurrentPassword" required/>
+            </li>
+            <li>
+                <label for="inputNewPassword">Nouveau mot de passe (*) : </label>
+                <input name="newPassword" type="text" id="inputNewPassword" required/>
+            </li>
+            <li>
+                <label for="inputConfirm">Confirmation (*) :</label>
+                <input name="confirm" type="text" id="inputConfirm" required>
+            </li>
+            <div style="text-align: center; margin-top: 20px ">
+                <button style="display: inline-block; margin-right: 20px; padding: 10px; cursor: pointer" type="submit">Modifier</button>
+                <button style="display: inline-block; padding: 10px; cursor: pointer" type="reset">Annuler</button>
+            </div>
+        </ul>
+    </form>
+
 </main>
 
 </html>

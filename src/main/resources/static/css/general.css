@@ -44,3 +44,8 @@ main h1 {
 }
 
 #nav-title div>a>img {width: 25px;}
+
+.retour{
+	color: aliceblue;
+	text-decoration: none;
+}

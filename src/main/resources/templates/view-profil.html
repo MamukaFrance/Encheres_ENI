@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="fr" data-th-replace="~{file-layout::layout(contenu=~{::main},titre=~{::title})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Profil</title>
+</head>
+<body>
+    <main th:replace="fragments/fragment-profil-form :: frag-profil-form('Profil', '/profil/sauvegarder', ${profil})">
+    </main>
+</body>
+</html>
