@@ -48,25 +48,29 @@ public class SecurityConfiguration {
         return http.authorizeHttpRequests(auth->
                 {
                     auth.requestMatchers(HttpMethod.GET,"/").permitAll();
-                   // auth.requestMatchers("/register").permitAll();
-                    auth.requestMatchers(HttpMethod.GET,"/register").permitAll();
-                    auth.requestMatchers(HttpMethod.POST,"/register").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/error").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/css/**").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/images/**").permitAll();
 
+                    // LoginController
+                    auth.requestMatchers(HttpMethod.GET,"/login").permitAll();
+                    // auth.requestMatchers("/register").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/register").permitAll();
+                    auth.requestMatchers(HttpMethod.POST,"/register").permitAll();
+
+                    // EncheresController
                     auth.requestMatchers(HttpMethod.GET,"/").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/enchere").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/nouvelle-vente").permitAll();
                     auth.requestMatchers(HttpMethod.POST,"/nouvelle-vente").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/vente-remportee").permitAll();
-                    auth.requestMatchers(HttpMethod.GET,"/view-nouveauProfil").permitAll();
-                    auth.requestMatchers(HttpMethod.GET,"/ajouter_photo").permitAll();
-                    auth.requestMatchers(HttpMethod.GET,"/profil").permitAll();
-
-                    auth.requestMatchers(HttpMethod.GET,"/change-password").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/detail-vente").permitAll();
-                    auth.requestMatchers(HttpMethod.GET,"/").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/ajouter_photo").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/change-password").permitAll();
+
+                    //UtilisateurController
+                    auth.requestMatchers(HttpMethod.GET,"/profil").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/profil/sauvegarder").permitAll();
 
                     // il n'y a que l'eleveur qui peut modifier les moutons
                    auth.requestMatchers(HttpMethod.GET,"/change-password").hasAnyRole("USER");

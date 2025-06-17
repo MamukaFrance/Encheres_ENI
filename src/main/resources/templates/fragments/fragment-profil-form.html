@@ -18,47 +18,49 @@
 
   <ul class="flex-outer">
     <li>
-      <label for="inputPseudo">Pseudo :</label>
-      <input type="text" id="inputPseudo" th:field="${profil.pseudo}" required>
+      <label for="inputPseudo">Pseudo : <span>*</span></label>
+      <input class="saisie" type="text" id="inputPseudo" th:field="${profil.pseudo}" required>
     </li>
     <li>
-      <label for="inputNom">Nom :</label>
-      <input type="text" id="inputNom" th:field="${profil.nom}" required>
+      <label for="inputNom">Nom : <span>*</span></label>
+      <input class="saisie" type="text" id="inputNom" th:field="${profil.nom}" required>
     </li>
     <li>
-      <label for="inputPrenom">Prénom :</label>
-      <input type="text" id="inputPrenom" th:field="${profil.prenom}" required>
+      <label for="inputPrenom">Prénom : <span>*</span></label>
+      <input class="saisie" type="text" id="inputPrenom" th:field="${profil.prenom}" required>
     </li>
     <li>
-      <label for="inputEmail">Email :</label>
-      <input type="email" id="inputEmail" th:field="${profil.email}" required>
+      <label for="inputEmail">Email : <span>*</span></label>
+      <input class="saisie" type="email" id="inputEmail" th:field="${profil.email}" required>
     </li>
     <li>
-      <label for="inputTelephone">Téléphone :</label>
-      <input type="tel" id="inputTelephone" th:field="${profil.telephone}" >
+      <label for="inputTelephone">Téléphone : <span>*</span></label>
+      <input class="saisie" type="tel" id="inputTelephone" th:field="${profil.telephone}" >
     </li>
     <li class="adresse">
-      <label for="inputAdresse">Adresse :</label>
+      <label for="inputAdresse">Adresse : <span>*</span></label>
       <input placeholder="Rue" type="text" id="inputAdresse" th:field="${profil.adresse.rue}" required>
       <input placeholder="Code Postal" type="text" th:field="${profil.adresse.codePostal}" required>
       <input placeholder="Ville" type="text" th:field="${profil.adresse.ville}" required>
     </li>
     <li>
-      <label for="inputMotDePasse">Mot De Passe :</label>
-      <input type="password" id="inputMotDePasse" required>
+      <label for="inputMotDePasse">Mot De Passe : <span>*</span></label>
+      <input class="saisie" type="password" id="inputMotDePasse" required>
     </li>
     <li>
-      <label for="inputMotDePasseConfirmation">Confirmer mot De Passe :</label>
-      <input type="password" id="inputMotDePasseConfirmation"  required>
+      <label for="inputMotDePasseConfirmation">Confirmer mot De Passe : <span>*</span></label>
+      <input class="saisie" type="password" id="inputMotDePasseConfirmation"  required>
     </li>
   </ul>
-  <th:block class="boutons" th:if="!${#authorization.expression('isAuthenticated()')}">
-    <button type="submit" >Créer</button>
-  </th:block>
-  <th:block class="boutons" th:if="${#authorization.expression('isAuthenticated()')}">
-    <button type="submit" >Modifier</button>
-  </th:block>
-  <button type="reset">Annuler</button>
+  <ul class="boutons">
+      <th:block class="boutons" th:if="!${#authorization.expression('isAuthenticated()')}">
+        <input class="btnValid" type="submit" value="Créer">
+      </th:block>
+      <th:block class="boutons" th:if="${#authorization.expression('isAuthenticated()')}">
+        <input class="btnValid" type="submit" value="Modifier">
+      </th:block>
+      <input class="btnAnnul" type="button" value="Annuler">
+  </ul>
 
 </form>
 </main>

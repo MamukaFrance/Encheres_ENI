@@ -27,13 +27,18 @@ form h1 {
 	align-items: center;
 	margin: 15px 10px;
 }
+
 .flex-outer span {
 	color: red;
 }
 
+.flex-outer .saisie {
+	max-width: 250px;
+}
+
 .flex-outer>li>label {
 	flex: 1 0 120px;
-	max-width: 220px;
+	max-width: 130px;
 }
 
 .flex-outer>li>label+* {
@@ -56,14 +61,15 @@ form h1 {
 .flex-outer>li select {
 	flex: 1 0 160px;
 }
-ul.boutons {
+
+.boutons {
 	display: flex;
 	justify-content: center;
 	list-style: none;
 	margin-top: 20px;
 }
 
-.boutons li input {
+.boutons input {
 	border-radius: 10px;
 	cursor: pointer;
 	font-size: 1.2em;
@@ -71,22 +77,22 @@ ul.boutons {
 	margin: 5px 5px;
 }
 
-.boutons li input#btn1,
-.boutons li input#btn2 {
+.boutons input.btnValid,
+.boutons button {
 	background-color: #426c13;
 }
 
-.boutons li input#btn1:hover,
-.boutons li input#btn2:hover {
+.boutons input.btnValid:hover,
+.boutons button:hover {
 	background-color: #568f17;
 }
 
-.boutons li input#btn3,
-.boutons li input#btn4 {
+.boutons input.btnAnnul,
+.boutons button {
 	background-color: darkred;
 }
 
-.boutons li input#btn3:hover,
-.boutons li input#btn4:hover {
+.boutons input.btnAnnul:hover,
+.boutons button:hover {
 	background-color: red;
 }

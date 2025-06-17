@@ -39,7 +39,8 @@
                 <label for="date_fin_encheres">Fin de l'enchère <span>*</span></label>
                 <input type="date" id="date_fin_encheres" data-th-field="*{dateFinEncheres}">
             </li>
-            </ul>
+        </ul>
+
         <ul class="flex-outer">
             <li>
                 <label for="retrait">Retrait <span>*</span></label>
@@ -48,13 +49,14 @@
                             data-th-text="${a.rue} + ', ' + ${a.codePostal} + ' ' + ${a.ville}"></option>
                 </select>
             </li>
-            </ul>
+        </ul>
+
         <ul class="boutons">
             <li>
-                <input id="btn1" type="submit" value="Valider">
-                <input id="btn2" type="button" value="Suivant">
-                <input id="btn3" type="button" value="Annuler la vente">
-                <input id="btn4" type="button" value="Annuler">
+                <input class="btnValid" type="submit" value="Valider">
+                <input class="btnValid" type="button" value="Suivant">
+                <input class="btnAnnul" type="button" value="Annuler la vente">
+                <input class="btnAnnul" type="button" value="Annuler">
             </li>
         </ul>
 
