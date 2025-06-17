@@ -44,9 +44,10 @@ public class UtilisateurController {
         return "redirect:/profil";
     }
 
-
-
-
+    @GetMapping("/change-password")
+    public String changePassword(){
+        return "view-changerMotDePasse";
+    }
 
 
 

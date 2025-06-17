@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class loginController {
+public class LoginController {
     protected final Log logger = LogFactory.getLog(getClass());
     private final UtilisateurService utilisateurService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final UtilisateurServiceImpl utilisateurServiceImpl;
 
-    public loginController(UtilisateurService utilisateurService, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, UtilisateurServiceImpl utilisateurServiceImpl) {
+    public LoginController(UtilisateurService utilisateurService, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, UtilisateurServiceImpl utilisateurServiceImpl) {
         this.utilisateurService = utilisateurService;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;

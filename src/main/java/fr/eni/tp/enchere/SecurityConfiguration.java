@@ -47,7 +47,6 @@ public class SecurityConfiguration {
 
         return http.authorizeHttpRequests(auth->
                 {
-                    auth.requestMatchers(HttpMethod.GET,"/").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/error").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/css/**").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/images/**").permitAll();
@@ -66,11 +65,11 @@ public class SecurityConfiguration {
                     auth.requestMatchers(HttpMethod.GET,"/vente-remportee").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/detail-vente").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/ajouter_photo").permitAll();
-                    auth.requestMatchers(HttpMethod.GET,"/change-password").permitAll();
 
                     //UtilisateurController
                     auth.requestMatchers(HttpMethod.GET,"/profil").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/profil/sauvegarder").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/profil/change-password").permitAll();
 
                     auth.requestMatchers(HttpMethod.GET,"/change-password").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/detail-vente").permitAll();
