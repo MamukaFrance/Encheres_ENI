@@ -17,14 +17,13 @@ form h1 {
 	list-style: none;
 }
 
-* .flex-outer li {
+.flex-outer li {
 	display: flex;
 	flex: 1 1 40%;
 	flex-wrap: wrap;
 	align-items: center;
 	margin: 5px;
 }
-
 
 .flex-outer>li>label {
 	flex: 1 0 120px;
@@ -50,40 +49,3 @@ form h1 {
 .flex-outer>li select {
 	flex: 1 0 160px;
 }
-
-input, select {
-	width: 100%;
-	max-width: 250px;
-}
-
-#inputRetrait {
-	max-width: 90vh;
-}
-
-.flex-outer span {
-	color: red;
-}
-
-.boutons {
-	list-style: none;
-	text-align: center;
-	padding-top: 70px;
-}
-.boutons input {
-	padding: 15px;
-	margin: 10px;
-	font-size: 1.2em;
-}
-
-.boutons input:hover {
-	cursor: pointer;
-}
-
-.boutons input {
-	background-color: darkred;
-}
-
-.boutons input:first-child {
-	background-color: chartreuse;
-}
-
