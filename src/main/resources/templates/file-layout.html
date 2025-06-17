@@ -18,22 +18,23 @@
 
         <a href="/"><img data-th-src="@{/images/encheres.png}" style="width: 200px;"/><span>Enchères ENI</span></a>
 
-        <!--<th:block data-th-if="${#authorization.expression('isAuthenticated()')}">
-            <p data-th-text="${#authentication.name}"></p>
-            <a data-th-href="@{/logout}" >Se d�connecter</a>
-        </th:block>
-        <th:block data-th-if="${!#authorization.expression('isAuthenticated()')}">
-            <a data-th-href="@{/login}" >Se connecter</a>
-        </th:block> -->
+
+
     </h1>
 
     <nav>
         <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/inscript_connect">S'inscrire/se connecter</a></li>
-            <li><a href="/nouvelle-vente">Vendre un article</a></li>
+            <li><a href="/accueil">Accueil</a></li>
+            <th:block data-th-if="${!#authorization.expression('isAuthenticated()')}">
+                <li><a href="/inscript_connect">S'inscrire/se connecter</a></li>
+            </th:block>
+            <li><a href="/vendreArticle">Vendre un article</a></li>
             <li><a href="/profil">Mon profil</a></li>
-            <li><a href="/deconnexion">Se déconnecter</a></li>
+            <th:block data-th-if="${#authorization.expression('isAuthenticated()')}">
+
+                <li><a href="/logout">Se déconnecter</a></li>
+            </th:block>
+
         </ul>
     </nav>
     </section>
@@ -43,7 +44,7 @@
             <span th:text="${T(java.time.LocalDate).now().format(T(java.time.format.DateTimeFormatter).ofPattern('dd MMMM yyyy'))}"></span>
         </p>
         <p>Participant :
-            <span></span>
+            <span data-th-text="${#authentication.name}"></span>
         </p>
     </div>
 

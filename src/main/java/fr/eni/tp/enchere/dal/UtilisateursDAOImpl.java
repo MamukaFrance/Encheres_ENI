@@ -13,7 +13,7 @@ import java.util.List;
 public class UtilisateursDAOImpl implements UtilisateursDAO{
 
     private final String FIND_BY_PSEUDO = "SELECT pseudo, nom, prenom, telephone, credit, no_adresse FROM UTILISATEURS WHERE pseudo = :pseudo";
-    private final String FIND_BY_EMAIL = "SELECT pseudo, nom, prenom, telephone, credit, no_adresse FROM UTILISATEURS WHERE pseudo = :email";
+    private final String FIND_BY_EMAIL = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse FROM UTILISATEURS WHERE email = :email";
     private final String INSERT = "INSERT INTO UTILISATEURS(pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse)  VALUES (:pseudo, :nom, :prenom, :email, :telephone, :mot_de_passe, :credit, :administrateur, :no_adresse) ";
 
 
