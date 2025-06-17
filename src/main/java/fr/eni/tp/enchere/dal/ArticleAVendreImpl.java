@@ -61,7 +61,7 @@ public class ArticleAVendreImpl implements ArticleAVendreDAO {
         parameterSource.addValue("noCategorie", articleAVendre.getCategorie().getId());
         parameterSource.addValue("noAdresseRetrait", articleAVendre.getRetrait().getId());
 
-        jdbcTemplate.update(INSERT, parameterSource, keyHolder, new String[] { "no_article" });
+        jdbcTemplate.update(INSERT, parameterSource, keyHolder);
 
 
     }

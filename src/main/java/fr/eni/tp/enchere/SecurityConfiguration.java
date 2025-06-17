@@ -48,7 +48,9 @@ public class SecurityConfiguration {
         return http.authorizeHttpRequests(auth->
                 {
                     auth.requestMatchers(HttpMethod.GET,"/").permitAll();
-                    auth.requestMatchers("/register").permitAll();
+                   // auth.requestMatchers("/register").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/register").permitAll();
+                    auth.requestMatchers(HttpMethod.POST,"/register").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/error").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/css/**").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/images/**").permitAll();
@@ -56,14 +58,18 @@ public class SecurityConfiguration {
                     auth.requestMatchers(HttpMethod.GET,"/").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/enchere").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/nouvelle-vente").permitAll();
-                    auth.requestMatchers(HttpMethod.GET,"/nouvelle-vente").permitAll();
+                    auth.requestMatchers(HttpMethod.POST,"/nouvelle-vente").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/vente-remportee").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/view-nouveauProfil").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/ajouter_photo").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/profil").permitAll();
+
                     auth.requestMatchers(HttpMethod.GET,"/change-password").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/detail-vente").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/").permitAll();
 
                     // il n'y a que l'eleveur qui peut modifier les moutons
-//                    auth.requestMatchers(HttpMethod.GET,"/edit").hasAnyRole("ELEVEUR");
+                   auth.requestMatchers(HttpMethod.GET,"/change-password").hasAnyRole("USER");
 //                    auth.requestMatchers(HttpMethod.GET,"/create").hasAnyRole("ELEVEUR");
 //                    auth.requestMatchers(HttpMethod.POST,"/moutonSave").hasAnyRole("ELEVEUR");
 

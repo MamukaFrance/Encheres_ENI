@@ -5,7 +5,7 @@ import fr.eni.tp.enchere.bo.Adresse;
 import java.util.List;
 
 public interface AdresseDAO {
-    void createAdresse (Adresse adresse);
+    Adresse createAdresse (Adresse adresse);
 
     List<Adresse> readAll();
 

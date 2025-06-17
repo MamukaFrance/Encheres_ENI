@@ -1,5 +1,6 @@
 package fr.eni.tp.enchere.bll;
 
+import fr.eni.tp.enchere.bo.Adresse;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -17,4 +18,8 @@ public interface UtilisateurService extends UserDetailsService {
     void delete(String pseudo);
 
     Utilisateur registerNewUser(Utilisateur utilisateur);
+
+    Adresse create(Adresse adresse);
+
+    Adresse getAdresseById(long id);
 }

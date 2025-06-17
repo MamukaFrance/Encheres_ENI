@@ -1,0 +1,27 @@
+<!DOCTYPE html >
+<html lang="fr" data-th-replace="~{file-layout::layout(contenu=~{::main},titre=~{::title})}"
+      xmlns:th="http://www.thymeleaf.org">
+<title>Page de connexion</title>
+<main>
+  <form data-th-action="@{/login}" method="post">
+    <h1>Connectez-vous</h1>
+    <ul class="flex-outer">
+      <li>
+        <label for="inputUsername">Votre adresse mail</label>
+        <input id="inputUsername" type="text" name="username"/>
+      </li>
+      <li>
+        <label for="inputPwd">Votre mot de passe</label>
+        <input id="inputPwd" type="password" name="password"/>
+      </li>
+      <li>
+        <button type="submit">Se connecter</button>
+      </li>
+      <li>
+        <a data-th-href="@{/register}">S'inscrire</a>
+      </li>
+
+    </ul>
+  </form>
+</main>
+</html>

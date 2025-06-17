@@ -8,12 +8,12 @@
 <form data-th-fragment="frag-profil-form(titreForm, action, profil)"  th:action="@{${action}}" method="post" >
 
 
-<th:block th:if="${membreEnSession == null}">
+<th:block th:if="!${#authorization.expression('isAuthenticated()')}">
   <h1>Nouveau Profil</h1>
 </th:block>
 
-  <th:block th:if="${membreEnSession != null}">
-    <h1 th:text="'Profil de ' + ${membreEnSession.nom}"></h1>
+  <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+    <h1 th:text="'Profil de ' + ${principal.username}"></h1>
   </th:block>
 
   <ul class="flex-outer">
@@ -52,13 +52,13 @@
       <input type="password" id="inputMotDePasseConfirmation"  required>
     </li>
   </ul>
-
-  <div class="boutons" hidden="true">
+  <th:block class="boutons" th:if="!${#authorization.expression('isAuthenticated()')}">
     <button type="submit" >Créer</button>
-    <button type="reset">Annuler</button>
-  </div>
-
-
+  </th:block>
+  <th:block class="boutons" th:if="${#authorization.expression('isAuthenticated()')}">
+    <button type="submit" >Modifier</button>
+  </th:block>
+  <button type="reset">Annuler</button>
 
 </form>
 </main>

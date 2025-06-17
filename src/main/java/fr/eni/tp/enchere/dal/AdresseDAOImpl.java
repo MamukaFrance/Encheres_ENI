@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.plaf.basic.BasicTreeUI;
 import java.util.List;
 
 @Repository
@@ -26,15 +27,17 @@ public class AdresseDAOImpl implements AdresseDAO{
     private NamedParameterJdbcTemplate jdbcTemplate;
 
 
-    public void createAdresse(Adresse adresse) {
+    public Adresse createAdresse(Adresse adresse) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("rue", adresse.getRue());
         params.addValue("codePostal", adresse.getCodePostal());
         params.addValue("ville", adresse.getVille());
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(INSERT, params, keyHolder, new String[]{"no_adresse"});
+        jdbcTemplate.update(INSERT, params, keyHolder);
 
+        adresse.setId(keyHolder.getKey().longValue());
+        return adresse;
     }
 
 
