@@ -24,7 +24,6 @@ import java.sql.SQLException;
             Adresse adresse = new Adresse();
             adresse.setId(rs.getLong("no_adresse"));
             f.setAdresse(adresse);
-
             return f;
         }
     }
