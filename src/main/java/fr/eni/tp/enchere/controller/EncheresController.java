@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -62,11 +64,12 @@ public class EncheresController {
         personneConnecte = (Utilisateur) principal;
 
         articleAvendre.setVendeur(personneConnecte);
+        articleAvendre.setPrixVente(articleAvendre.getPrixInitial());
         encheresService.nouvelleVente(articleAvendre);
 // on doit rajouter le vendeur avec le pseudo
- var nouvelleid=articleAvendre.getId();
+        var nouvelId = articleAvendre.getId();
 
-        return "redirect:/detail-vente?id="+nouvelleid;
+        return "redirect:/detail-vente?id=" + nouvelId;
     }
 
     @GetMapping("/vente-remportee")
@@ -76,9 +79,13 @@ public class EncheresController {
 
     @GetMapping("/detail-vente")
     public String detailVente(@RequestParam(name = "id", required = true) long id, Model model) {
-
-
         ArticleAVendre articleAVendre = this.encheresService.voirEnchere(id);
+        var enchere = new Enchere();
+        enchere.setMontant(articleAVendre.getPrixVente() + 1);
+        model.addAttribute("enchere", enchere);
+
+
+        model.addAttribute("idArticle", id);
         model.addAttribute("categories", encheresService.getCategoriesById(articleAVendre.getCategorie().getId()));
         model.addAttribute("adresses", encheresService.getAdresseById(articleAVendre.getRetrait().getId()));
         model.addAttribute("dateDebutEncheres", articleAVendre.getDateDebutEncheres());
@@ -87,6 +94,33 @@ public class EncheresController {
         model.addAttribute("articleAVendre", articleAVendre);
         return "view-detailVente";
 
+    }
+
+    @PostMapping("/detail-vente")
+    public String detailVente(@Valid @ModelAttribute("enchere") Enchere enchere, BindingResult result, Model model, Authentication authentication, @RequestParam(name = "idArticle") long idArticle, RedirectAttributes redirectAttributes) {
+        Utilisateur personneConnecte = null;
+        var principal = authentication.getPrincipal();
+        personneConnecte = (Utilisateur) principal;
+
+
+        enchere.setAcquereur(personneConnecte);
+        ArticleAVendre articleAVendre = encheresService.voirEnchere(idArticle);
+        enchere.setArticleAVendre(articleAVendre);
+
+        enchere.setDate(LocalDateTime.now());
+        if (personneConnecte.getCredit() > enchere.getMontant()) {
+
+
+            encheresService.creerEnchere(enchere);
+            redirectAttributes.addFlashAttribute("success", "Enchère placée avec succès!");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Crédit insuffisant pour enchérir.");
+
+
+        }
+
+
+        return "redirect:/detail-vente?id=" + idArticle;
     }
 
 

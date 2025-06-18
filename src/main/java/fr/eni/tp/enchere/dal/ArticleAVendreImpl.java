@@ -27,7 +27,7 @@ public class ArticleAVendreImpl implements ArticleAVendreDAO {
             + " VALUES (:nomArticle, :description, :dateDebutEncheres, :dateFinEncheres, :statutEnchere, :prixInitial, :prixVente, :idUtilisateur, :noCategorie, :noAdresseRetrait)";
     // attention faut enlever le * pour le delete
     private final String DELETE = "DELETE FROM ARTICLES_A_VENDRE WHERE no_article =:id";
-    private final String UPDATE = "UPDATE ARTICLES_A_VENDRE SET nom_article = :nomArticle, description = :description, date_debut_encheres = :dateDebutEncheres, date_fin_encheres = :dateFinEncheres, statut_enchere = :statutEnchere, prix_initial = :prixInitial, prix_vente = :prixVente, id_utilisateur = :idUtilisateur, no_categorie = :noCategorie, no_adresse_retrait = :noAdresseRetrait";
+    private final String UPDATE = "UPDATE ARTICLES_A_VENDRE SET nom_article = :nomArticle, description = :description, date_debut_encheres = :dateDebutEncheres, date_fin_encheres = :dateFinEncheres, statut_enchere = :statutEnchere, prix_initial = :prixInitial, prix_vente = :prixVente, id_utilisateur = :idUtilisateur, no_categorie = :noCategorie, no_adresse_retrait = :noAdresseRetrait where no_article= :noArticle";
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -72,19 +72,23 @@ public class ArticleAVendreImpl implements ArticleAVendreDAO {
 
     @Override
     public void update(ArticleAVendre articleAVendre) {
-    MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("noArticle",articleAVendre.getId());
-        parameterSource.addValue("nomArticle",articleAVendre.getNom());
-        parameterSource.addValue("description",articleAVendre.getDescription());
-        parameterSource.addValue("dateDebutEncheres",articleAVendre.getDateDebutEncheres());
-        parameterSource.addValue("dateFinEncheres",articleAVendre.getDateFinEncheres());
-        parameterSource.addValue("statutEnchere",articleAVendre.getStatut());
-        parameterSource.addValue("prixInitial",articleAVendre.getPrixInitial());
-        parameterSource.addValue("prixVente",articleAVendre.getPrixVente());
-        parameterSource.addValue("idUtilisateur",articleAVendre.getVendeur());
-        parameterSource.addValue("noCategorie",articleAVendre.getCategorie());
-        parameterSource.addValue("noAdresseRetrait",articleAVendre.getRetrait());
-         jdbcTemplate.update(UPDATE, parameterSource);
+
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("noArticle", articleAVendre.getId());
+        parameterSource.addValue("nomArticle", articleAVendre.getNom());
+        parameterSource.addValue("description", articleAVendre.getDescription());
+        parameterSource.addValue("dateDebutEncheres", articleAVendre.getDateDebutEncheres());
+        parameterSource.addValue("dateFinEncheres", articleAVendre.getDateFinEncheres());
+        parameterSource.addValue("statutEnchere", articleAVendre.getStatut());
+        parameterSource.addValue("prixInitial", articleAVendre.getPrixInitial());
+        parameterSource.addValue("prixVente", articleAVendre.getPrixVente());
+
+        // Ensure these are the correct types expected by your database
+        parameterSource.addValue("idUtilisateur", articleAVendre.getVendeur().getPseudo());
+        parameterSource.addValue("noCategorie", articleAVendre.getCategorie().getId());
+        parameterSource.addValue("noAdresseRetrait", articleAVendre.getRetrait().getId());
+
+        jdbcTemplate.update(UPDATE, parameterSource);
 
     }
 

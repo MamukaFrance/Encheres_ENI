@@ -7,7 +7,7 @@ import java.util.*;
 
 public interface EnchereDAO {
 
-    void create(Enchere enchere);
+    Enchere create(Enchere enchere);
     Enchere read(String idUtilisateur, long noArticle, int montantEnchere);
     List<Enchere> readAll();
     void update(Enchere enchere);

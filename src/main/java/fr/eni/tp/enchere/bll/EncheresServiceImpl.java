@@ -4,10 +4,7 @@ import fr.eni.tp.enchere.bo.Adresse;
 import fr.eni.tp.enchere.bo.ArticleAVendre;
 import fr.eni.tp.enchere.bo.Categorie;
 import fr.eni.tp.enchere.bo.Enchere;
-import fr.eni.tp.enchere.dal.AdresseDAO;
-import fr.eni.tp.enchere.dal.ArticleAVendreDAO;
-import fr.eni.tp.enchere.dal.CategorieDAO;
-import fr.eni.tp.enchere.dal.UtilisateursDAO;
+import fr.eni.tp.enchere.dal.*;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +20,14 @@ public class EncheresServiceImpl implements EncheresService {
     private AdresseDAO adresseDAO;
     private ArticleAVendreDAO articleAVendreDAO;
     private UtilisateursDAO utilisateursDAO;
+    private EnchereDAO enchereDAO;
 
-    public EncheresServiceImpl(CategorieDAO categorieDAO, AdresseDAO adresseDAO, ArticleAVendreDAO articleAVendreDAO, UtilisateursDAO utilisateursDAO) {
+    public EncheresServiceImpl(CategorieDAO categorieDAO, AdresseDAO adresseDAO, ArticleAVendreDAO articleAVendreDAO, UtilisateursDAO utilisateursDAO, EnchereDAO enchereDAO) {
         this.categorieDAO = categorieDAO;
         this.adresseDAO = adresseDAO;
         this.articleAVendreDAO = articleAVendreDAO;
         this.utilisateursDAO = utilisateursDAO;
+        this.enchereDAO = enchereDAO;
     }
 
     @Override
@@ -45,6 +44,20 @@ public class EncheresServiceImpl implements EncheresService {
 
         return articlesFiltres;
 
+    }
+
+    @Override
+    public Enchere creerEnchere(Enchere enchere) {
+        Enchere createdEnchere = enchereDAO.create(enchere);
+
+       if(createdEnchere!=null){
+        var idAModifier = enchere.getArticleAVendre().getId();
+        var articleAVendreAModifier = articleAVendreDAO.read(idAModifier);
+        articleAVendreAModifier.setPrixVente(enchere.getMontant());
+       articleAVendreDAO.update(articleAVendreAModifier);
+       }
+
+        return enchere;
     }
 
     @Override

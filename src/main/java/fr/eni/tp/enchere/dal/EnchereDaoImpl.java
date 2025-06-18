@@ -29,13 +29,14 @@ public class EnchereDaoImpl implements EnchereDAO{
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
-    public void create(Enchere enchere) {
+    public Enchere create(Enchere enchere) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("idUtilisateur",enchere.getAcquereur());
-        parameterSource.addValue("noArticle", enchere.getArticleAVendre());
+        parameterSource.addValue("idUtilisateur",enchere.getAcquereur().getPseudo());
+        parameterSource.addValue("noArticle", enchere.getArticleAVendre().getId());
         parameterSource.addValue("montantEnchere", enchere.getMontant());
         parameterSource.addValue("dateEnchere", enchere.getDate());
         jdbcTemplate.update(CREATE, parameterSource);
+        return enchere;
     }
 
     @Override
