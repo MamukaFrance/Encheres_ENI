@@ -1,6 +1,7 @@
 package fr.eni.tp.enchere.bo;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -15,7 +16,7 @@ public class Utilisateur implements UserDetails {
     private String email;
     private String telephone;
     private String motDePasse;
-    private int credit =10;
+    private int credit = 10;
     private boolean admin;
     private Adresse adresse;
 
@@ -102,7 +103,11 @@ public class Utilisateur implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        if (this.admin) {
+            return Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        } else {
+            return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+        }
     }
 
     @Override
