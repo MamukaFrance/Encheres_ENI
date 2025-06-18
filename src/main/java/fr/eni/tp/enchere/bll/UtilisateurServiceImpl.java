@@ -87,5 +87,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         return adresseDAO.readAdresseByID(id);
     }
 
+    @Override
+    public Utilisateur findByPseudo(String pseudo) {
+        return  utilisateursDAO.readUtilisateurByPseudo(pseudo);
+    }
+
 
 }

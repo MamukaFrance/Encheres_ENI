@@ -58,7 +58,7 @@
                 <a data-th-href="@{/detail-vente(id=${article.id})}"><li data-th-text="${article.nom}"></li></a>
                 <li data-th-text="'Prix : ' + ${article.prixVente}"></li>
                 <li data-th-text="'Fin de l\'enchère : ' + ${article.dateFinEncheres}"></li>
-                <li data-th-text="'Vendeur : ' + ${article.vendeur.pseudo}"></li>
+                <a data-th-href="@{/profil/vendeur(vendeur=${article.vendeur.pseudo})}"><li data-th-text="'Vendeur : ' + ${article.vendeur.pseudo}"></li></a>
             </div>
         </ul>
     </section>

@@ -22,4 +22,6 @@ public interface UtilisateurService extends UserDetailsService {
     Adresse create(Adresse adresse);
 
     Adresse getAdresseById(long id);
+
+    Utilisateur findByPseudo(String pseudo);
 }

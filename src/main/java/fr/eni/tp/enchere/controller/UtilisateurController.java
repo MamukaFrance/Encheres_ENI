@@ -1,15 +1,11 @@
 package fr.eni.tp.enchere.controller;
 
 import fr.eni.tp.enchere.bll.UtilisateurService;
-import fr.eni.tp.enchere.bo.Adresse;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -38,17 +34,28 @@ public class UtilisateurController {
     }
 
     @PostMapping("/sauvegarder")
-    public String sauvegarderProfil(@ModelAttribute("profil")Utilisateur utilisateur) {
+    public String sauvegarderProfil(@ModelAttribute("profil") Utilisateur utilisateur) {
         System.out.println(utilisateur);
         utilisateurService.create(utilisateur);
         return "redirect:/profil";
     }
 
     @GetMapping("/change-password")
-    public String changePassword(){
+    public String changePassword() {
         return "view-changerMotDePasse";
     }
 
+    @GetMapping("/vendeur")
+    public String profilVendeur(Model model, @RequestParam(name = "vendeur") String pseudoVendeur) {
+        // Récupération du vendeur via son pseudo
+        Utilisateur vendeur = utilisateurService.findByPseudo(pseudoVendeur);
+        if (vendeur == null) {
+            // gérer le cas où le vendeur n'existe pas, par ex. redirection ou message d'erreur
+            return "vendeur-not-found";
+        }
+        model.addAttribute("vendeur", vendeur);
+        return "view-profilVendeur";
+    }
 
 
 }
