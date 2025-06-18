@@ -7,6 +7,7 @@
 <main>
     <h1>Liste des enchères</h1>
     <form action="/encheres" method="post">
+
         <ul class="flex-outer">
             <li>
                 <label for="filtres">Filtres :</label>
@@ -50,12 +51,17 @@
         </ul>
     </form>
 
-    <ul class="flex-outer cartes" data-th-each="article : ${articles}">
-        <a data-th-href="@{/detail-vente(id=${article.id})}"><li data-th-text="${article.nom}"></li></a>
-        <li data-th-text="'Prix : ' + ${article.prixVente}"></li>
-        <li data-th-text="'Fin de l\'enchère : ' + ${article.dateFinEncheres}"></li>
-        <li data-th-text="'Vendeur : ' + ${article.vendeur.pseudo}"></li>
-    </ul>
+    <section class="affichageCartes">
+        <ul class="flex-outer carte" data-th-each="article : ${articles}">
+            <img src="" alt="image produit">
+            <div>
+                <a data-th-href="@{/detail-vente(id=${article.id})}"><li data-th-text="${article.nom}"></li></a>
+                <li data-th-text="'Prix : ' + ${article.prixVente}"></li>
+                <li data-th-text="'Fin de l\'enchère : ' + ${article.dateFinEncheres}"></li>
+                <li data-th-text="'Vendeur : ' + ${article.vendeur.pseudo}"></li>
+            </div>
+        </ul>
+    </section>
 
 
 

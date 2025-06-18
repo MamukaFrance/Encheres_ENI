@@ -40,14 +40,38 @@ form h1 {
 }
 .flex-outer .listeDeroulantes {
 	display: flex;
-	flex-direction: column;
-}
-.cartes {
 	flex-direction: row;
-	background-color: #cfcfcf;
-	border-radius: 10px;
-	margin-top: 10px;
-	max-width: 30vh;
+}
+
+.affichageCartes {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 10px; /* Pour espacer les cartes entre elles proprement */
+	max-width: 80%;     /* 900px ou 80%, 60vw, etc. */
+	margin: 0 auto;
+}
+
+.carte {
+	 display: flex;
+	 flex-direction: row;
+	 background-color: #cfcfcf;
+	 border-radius: 10px;
+	 margin-top: 10px;
+     max-width: 25vw;
+	 flex: 1 1 calc(30% - 20px); /* 3 cartes par ligne avec espace */
+	 box-sizing: border-box;
+ }
+
+.carte img {
+	justify-content: space-around;
+	max-height: 90%;
+	width: auto;
+	border-style: solid;
+	border-width: 2px;
+	border-color: black;
+	border-radius: 5px;
+	margin: 10px;
 }
 
 .flex-outer>li>label {

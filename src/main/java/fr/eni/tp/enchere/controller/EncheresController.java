@@ -38,6 +38,7 @@ public class EncheresController {
     public String consulterEncheres(Model model) {
         List<ArticleAVendre> articleAVendres = this.encheresService.consulterEncheres();
         model.addAttribute("articles", articleAVendres);
+        model.addAttribute("categories", encheresService.getCategories());
         return "view-listeEncheres";
     }
 
