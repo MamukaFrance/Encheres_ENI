@@ -49,3 +49,48 @@ main h1 {
 	color: aliceblue;
 	text-decoration: none;
 }
+
+.login {
+	display: flex;
+	flex-direction: column;
+	max-width: 50vw;
+	list-style: none;
+	padding: 0;
+}
+
+.login li {
+	display: flex;
+	flex-direction: column;  /* empile le label et l'input */
+	margin-bottom: 15px;
+}
+
+.login label {
+	margin-bottom: 5px;       /* petit espace sous le label */
+	width: 100%;              /* s'étend sur toute la ligne */
+}
+
+.login input {
+	height: 40px;
+	width: 100%;
+	padding: 8px;
+	font-size: 1rem;
+	box-sizing: border-box;
+}
+
+.classPhoto {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.classPhoto ul li {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.classPhoto img {
+	width: 50%;
+	height: 50%;
+	align-content: space-around;
+}

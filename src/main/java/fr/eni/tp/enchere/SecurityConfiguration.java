@@ -56,12 +56,18 @@ public class SecurityConfiguration {
                     auth.requestMatchers(HttpMethod.POST,"/register").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/").permitAll();
 
+                    auth.requestMatchers(HttpMethod.GET,"/ajouter_photo").permitAll();
+                    auth.requestMatchers(HttpMethod.POST,"/ajouter_photo").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/upload/**").permitAll();
+                    auth.requestMatchers(HttpMethod.POST,"/upload/**").permitAll();
+
                     auth.requestMatchers(HttpMethod.GET,"/profil/change-password").hasAnyRole("USER");
                     auth.requestMatchers(HttpMethod.GET,"/enchere").hasAnyRole("USER");
                     auth.requestMatchers(HttpMethod.GET,"/nouvelle-vente").hasAnyRole("USER");
                     auth.requestMatchers(HttpMethod.POST,"/nouvelle-vente").hasAnyRole("USER");
                     auth.requestMatchers(HttpMethod.GET,"/vente-remportee").hasAnyRole("USER");
-                    auth.requestMatchers(HttpMethod.GET,"/ajouter_photo").hasAnyRole("USER");
+                    //auth.requestMatchers(HttpMethod.GET,"/ajouter_photo").hasAnyRole("USER");
+                    //auth.requestMatchers(HttpMethod.POST,"/ajouter_photo").hasAnyRole("USER");
                     auth.requestMatchers(HttpMethod.GET,"/profil").hasAnyRole("USER");
                     auth.requestMatchers(HttpMethod.GET,"/detail-vente").hasAnyRole("USER");
                     auth.requestMatchers(HttpMethod.POST,"/detail-vente").hasAnyRole("USER");

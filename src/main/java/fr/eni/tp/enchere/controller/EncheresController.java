@@ -12,13 +12,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,6 +32,7 @@ import java.util.List;
 
 public class EncheresController {
 
+    private static final String UPLOAD_REPERTOIRE = "upload/";
 
     private final EncheresService encheresService;
 
@@ -66,10 +73,13 @@ public class EncheresController {
         articleAvendre.setVendeur(personneConnecte);
         articleAvendre.setPrixVente(articleAvendre.getPrixInitial());
         encheresService.nouvelleVente(articleAvendre);
-// on doit rajouter le vendeur avec le pseudo
+
+
+        // on doit rajouter le vendeur avec le pseudo
         var nouvelId = articleAvendre.getId();
 
-        return "redirect:/detail-vente?id=" + nouvelId;
+        return "redirect:/ajouter_photo?id=" + nouvelId;
+
     }
 
     @GetMapping("/vente-remportee")
@@ -125,9 +135,50 @@ public class EncheresController {
 
 
     @GetMapping("ajouter_photo")
-    public String ajouterPhoto() {
+    public String ajouterPhoto(@RequestParam(name = "id", required = true) long id, Model model) {
+        ArticleAVendre articleAVendre = this.encheresService.voirEnchere(id);
+        model.addAttribute("articleAVendre", articleAVendre);
+
         return "view-ajouterPhoto";
     }
+
+    @PostMapping("ajouter_photo")
+    public String ajouterPhoto(@RequestParam("photo") MultipartFile file,
+                                   @RequestParam("articleId") Long articleId,
+                                   RedirectAttributes redirectAttributes) {
+        if (file.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Veuillez sélectionner un fichier à uploader.");
+            return "redirect:/ajouter_photo";
+        }
+
+        String uploadDir = "src/main/resources/static/images/upload/";
+
+        try {
+            File dir = new File(uploadDir);
+            if (!dir.exists()) dir.mkdirs();
+
+            String originalFilename = file.getOriginalFilename();
+            String extension = "";
+
+            if (originalFilename != null && originalFilename.contains(".")) {
+                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            }
+
+            String filename = articleId + extension;
+
+            Path filepath = Paths.get(uploadDir, filename);
+            Files.write(filepath, file.getBytes());
+
+            redirectAttributes.addFlashAttribute("message", "Photo uploadée avec succès : " + filename);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "Erreur lors de l'upload : " + e.getMessage());
+        }
+
+        return "redirect:/detail-vente?id=" + articleId;
+    }
+
 
     @GetMapping("/change-password")
     public String changePassword() {

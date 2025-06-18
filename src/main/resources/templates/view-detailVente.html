@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <title>Detail de vente</title>
-idArticle
+
 <main>
     <h1>Details de la vente</h1>
    <input type="hidden" data-th-href="@{/edit(id=${articleAVendre.id})}">
@@ -43,6 +43,10 @@ idArticle
                 <input id="retrait" name="retrait"  th:value="${adresses.rue}+${adresses.codePostal}+${adresses.ville}" disabled>
                 </select>
             </li>
+
+            <img th:src="@{/upload/{filename}(filename=${articleAVendre.id + '.jpg'})}" alt="Photo article" />
+
+
             <li>
 
 

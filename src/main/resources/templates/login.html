@@ -5,7 +5,7 @@
 <main>
   <form data-th-action="@{/login}" method="post">
     <h1>Connectez-vous</h1>
-    <ul class="flex-outer">
+    <ul class="flex-outer ">
       <li>
         <label for="inputUsername">Votre adresse mail</label>
         <input id="inputUsername" type="text" name="username"/>
@@ -16,8 +16,6 @@
       </li>
       <li>
         <button type="submit">Se connecter</button>
-      </li>
-      <li>
         <a data-th-href="@{/register}">S'inscrire</a>
       </li>
 
