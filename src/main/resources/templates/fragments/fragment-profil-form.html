@@ -43,14 +43,17 @@
       <input class="adCP" placeholder="Code Postal" type="text" th:field="${adresse.codePostal}" required>
       <input class="adVille" placeholder="Ville" type="text" th:field="${adresse.ville}" required>
     </li>
-    <li>
-      <label for="inputMotDePasse">Mot De Passe : <span>*</span></label>
-      <input class="saisie" type="password" id="inputMotDePasse" required>
-    </li>
-    <li>
-      <label for="inputMotDePasseConfirmation">Confirmer mot De Passe : <span>*</span></label>
-      <input class="saisie" type="password" id="inputMotDePasseConfirmation" required>
-    </li>
+    <th:block class="boutons" th:if="!${#authorization.expression('isAuthenticated()')}">
+      <li>
+        <label for="inputMotDePasse">Mot De Passe : <span>*</span></label>
+        <input class="saisie" type="password" id="inputMotDePasse" required>
+      </li>
+      <li>
+        <label for="inputMotDePasseConfirmation">Confirmer mot De Passe : <span>*</span></label>
+        <input class="saisie" type="password" id="inputMotDePasseConfirmation" required>
+      </li>
+    </th:block>
+
   </ul>
   <ul class="boutons">
       <th:block class="boutons" th:if="!${#authorization.expression('isAuthenticated()')}">

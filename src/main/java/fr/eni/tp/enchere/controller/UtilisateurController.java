@@ -27,8 +27,11 @@ public class UtilisateurController {
                 utilisateurConnecte = (Utilisateur) principal;
             }
         }
+        var idAdresse =utilisateurConnecte.getAdresse().getId();
+        var adresse = utilisateurService.getAdresseById(idAdresse);
+
         model.addAttribute("profil", utilisateurConnecte);
-        model.addAttribute("adresse", utilisateurConnecte.getAdresse());
+        model.addAttribute("adresse", adresse);
 
         return "view-profil";
     }
