@@ -74,6 +74,11 @@ public class SecurityConfiguration {
                     auth.requestMatchers(HttpMethod.GET,"/profil/sauvegarder").hasAnyRole("USER");
                     auth.requestMatchers(HttpMethod.GET,"/profil/vendeur").hasAnyRole("USER");
 
+                    auth.requestMatchers(HttpMethod.GET,"/detail-vente").hasAnyRole("ADMIN");
+                    auth.requestMatchers(HttpMethod.POST,"/detail-vente").hasAnyRole("ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,"/profil/vendeur").hasAnyRole("USER");
+                    auth.requestMatchers(HttpMethod.POST,"/profil/vendeur").hasAnyRole("ADMIN");
+
                     auth.anyRequest().authenticated();
                 })
                 .csrf(Customizer.withDefaults())

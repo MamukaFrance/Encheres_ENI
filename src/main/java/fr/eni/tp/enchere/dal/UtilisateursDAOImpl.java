@@ -17,7 +17,7 @@ public class UtilisateursDAOImpl implements UtilisateursDAO{
     private final String INSERT = "INSERT INTO UTILISATEURS(pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse)  VALUES (:pseudo, :nom, :prenom, :email, :telephone, :mot_de_passe, :credit, :administrateur, :no_adresse) ";
 
     private final String DELETE_BY_EMAIL = "DELETE FROM UTILISATEURS WHERE email = :email";
-    private final String UPDATE = "UPDATE UTILISATEURS SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, mot_de_passe = :mot_de_passe, credit = :credit, administrateur = :administrateur, no_adresse = :no_adresse WHERE email = :email";
+    private final String UPDATE = "UPDATE UTILISATEURS SET pseudo = :pseudo, nom = :nom, prenom = :prenom, telephone = :telephone, mot_de_passe = :mot_de_passe, credit = :credit, administrateur = :administrateur, no_adresse = :no_adresse WHERE email = :email";
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -62,7 +62,7 @@ public class UtilisateursDAOImpl implements UtilisateursDAO{
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("email", email);
 
-        jdbcTemplate.queryForObject(DELETE_BY_EMAIL, namedParameters, new UtilisateurRowMapper());
+        jdbcTemplate.update(DELETE_BY_EMAIL, namedParameters);
     }
 
     @Override

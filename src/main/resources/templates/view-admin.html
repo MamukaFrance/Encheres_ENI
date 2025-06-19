@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr" data-th-replace="~{file-layout::layout(contenu=~{::main},titre=~{::title})}"
+      xmlns:th="http://www.thymeleaf.org">
+
+<title>Admin</title>
+
+<main>
+    <h1>Liste des utilisateurs</h1>
+
+    <section class="affichageCartes">
+        <ul class="flex-outer carte" data-th-each="utilisateur : ${utilisateurs}">
+
+            <div>
+                <a a data-th-href="@{/admin/profil(pseudo=${utilisateur.pseudo})}"><li data-th-text="${utilisateur.pseudo}"></li></a>
+                <li data-th-text="'Nom : ' + ${utilisateur.nom}"></li>
+                <li data-th-text="'Prenom : ' + ${utilisateur.prenom}"></li>
+                <li data-th-text="'Email : ' + ${utilisateur.email}"></li>
+                <li data-th-text="' : ' + ${utilisateur.email}"></li>
+                <li data-th-text="'Email : ' + ${utilisateur.email}"></li>
+            </div>
+        </ul>
+    </section>
+
+</main>
+</html>
