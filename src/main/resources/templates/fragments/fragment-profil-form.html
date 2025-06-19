@@ -13,37 +13,37 @@
 </th:block>
 
   <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-    <h1 th:text="'Profil de ' + ${profil.pseudo}"></h1>
+    <h1 th:text="'Profil de ' + ${profil.pseudo} + ' (Crédit restant :' + ${profil.credit} + ')'"></h1>
   </th:block>
 
   <ul class="flex-outer">
     <li>
-      <label for="inputPseudo">Pseudo : <span>*</span></label>
+      <label for="inputPseudo">Pseudo :</label>
       <input class="saisie" type="text" id="inputPseudo" th:field="${profil.pseudo}" required>
     </li>
 
     <li>
-      <label for="inputNom">Nom : <span>*</span></label>
+      <label for="inputNom">Nom :</label>
       <input class="saisie" type="text" id="inputNom" th:field="${profil.nom}" required>
     </li>
 
     <li>
-      <label for="inputPrenom">Prénom : <span>*</span></label>
+      <label for="inputPrenom">Prénom :</label>
       <input class="saisie" type="text" id="inputPrenom" th:field="${profil.prenom}" required>
     </li>
 
     <li>
-      <label for="inputEmail">Email : <span>*</span></label>
+      <label for="inputEmail">Email :</label>
       <input class="saisie" type="email" id="inputEmail" th:field="${profil.email}" required>
     </li>
 
     <li>
-      <label for="inputTelephone">Téléphone : <span>*</span></label>
+      <label for="inputTelephone">Téléphone :</label>
       <input class="saisie" type="tel" id="inputTelephone" th:field="${profil.telephone}" >
     </li>
 
     <li class="adresse">
-      <label for="inputAdresse">Adresse : <span>*</span></label>
+      <label for="inputAdresse">Adresse :</label>
       <input class="adRue" placeholder="Rue" type="text" id="inputAdresse" th:field="${adresse.rue}" required>
       <input class="adCP" placeholder="Code Postal" type="text" th:field="${adresse.codePostal}" required>
       <input class="adVille" placeholder="Ville" type="text" th:field="${adresse.ville}" required>
@@ -51,19 +51,19 @@
 
     <th:block class="boutons" th:if="!${#authorization.expression('isAuthenticated()')}">
       <li>
-        <label for="inputMotDePasse">Mot De Passe : <span>*</span></label>
+        <label for="inputMotDePasse">Mot De Passe :</label>
         <input class="saisie" type="password" id="inputMotDePasse" required>
       </li>
 
       <li>
-        <label for="inputMotDePasseConfirmation">Confirmer mot De Passe : <span>*</span></label>
+        <label for="inputMotDePasseConfirmation">Confirmer mot De Passe :</label>
         <input class="saisie" type="password" id="inputMotDePasseConfirmation" required>
       </li>
     </th:block>
 
     <th:block class="boutons" th:if="!${#authorization.expression('isAuthenticated()')}">
       <li>
-        <label for="inputMotDePasse">Mot De Passe : <span>*</span></label>
+        <label for="inputMotDePasse">Mot De Passe :</label>
         <input class="saisie" type="password" id="inputMotDePasse" required>
       </li>
 
