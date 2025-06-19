@@ -13,4 +13,6 @@ public interface UtilisateursDAO {
     void updateUtilisateur (Utilisateur utilisateur);
     List<Utilisateur> readAll();
    Utilisateur create(Utilisateur utilisateur);
+
+    void updateCreditByPseudo(Utilisateur utilisateur ,int aRembourser);
 }

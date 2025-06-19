@@ -7,8 +7,10 @@ import fr.eni.tp.enchere.bo.Enchere;
 import fr.eni.tp.enchere.dal.*;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,17 +47,34 @@ public class EncheresServiceImpl implements EncheresService {
         return articlesFiltres;
 
     }
-
+@Transactional
     @Override
     public Enchere creerEnchere(Enchere enchere) {
+        var idAModifier = enchere.getArticleAVendre().getId();
+        List<Enchere> ancienEncheres = enchereDAO.readByNo_Article(idAModifier);
+
+        Enchere ancienEnchere= ancienEncheres.stream().max(Comparator.comparingInt(Enchere::getMontant)).orElse(null);
+        var aRembourser = ancienEnchere.getMontant();
+
         Enchere createdEnchere = enchereDAO.create(enchere);
 
-       if(createdEnchere!=null){
-        var idAModifier = enchere.getArticleAVendre().getId();
-        var articleAVendreAModifier = articleAVendreDAO.read(idAModifier);
-        articleAVendreAModifier.setPrixVente(enchere.getMontant());
-       articleAVendreDAO.update(articleAVendreAModifier);
-       }
+        if (createdEnchere != null) {
+
+//modif sur l'article
+            var articleAVendreAModifier = articleAVendreDAO.read(idAModifier);
+            articleAVendreAModifier.setPrixVente(enchere.getMontant());
+            articleAVendreDAO.update(articleAVendreAModifier);
+
+//remboursement ancienne enchere
+            var pseudoAncienEnchere = ancienEnchere.getAcquereur();
+            utilisateursDAO.updateCreditByPseudo(pseudoAncienEnchere, aRembourser);
+
+//debit sur nouvelle enchere
+            var aDebiter=(enchere.getMontant()-(enchere.getMontant())*2);
+            utilisateursDAO.updateCreditByPseudo(enchere.getAcquereur(),aDebiter);
+
+
+        }
 
         return enchere;
     }

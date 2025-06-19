@@ -13,6 +13,7 @@ public class Enchere {
     public Enchere() {
     }
 
+
     public LocalDateTime getDate() {
         return date;
     }

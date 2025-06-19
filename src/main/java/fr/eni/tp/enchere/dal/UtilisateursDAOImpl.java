@@ -10,14 +10,17 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class UtilisateursDAOImpl implements UtilisateursDAO{
+public class UtilisateursDAOImpl implements UtilisateursDAO {
 
     private final String FIND_BY_PSEUDO = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse FROM UTILISATEURS WHERE pseudo = :pseudo";
     private final String FIND_BY_EMAIL = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse FROM UTILISATEURS WHERE email = :email";
     private final String INSERT = "INSERT INTO UTILISATEURS(pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse)  VALUES (:pseudo, :nom, :prenom, :email, :telephone, :mot_de_passe, :credit, :administrateur, :no_adresse) ";
 
     private final String DELETE_BY_EMAIL = "DELETE FROM UTILISATEURS WHERE email = :email";
-    private final String UPDATE = "UPDATE UTILISATEURS SET pseudo = :pseudo, nom = :nom, prenom = :prenom, telephone = :telephone, mot_de_passe = :mot_de_passe, credit = :credit, administrateur = :administrateur, no_adresse = :no_adresse WHERE email = :email";
+    private final String UPDATE = "UPDATE UTILISATEURS SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, mot_de_passe = :mot_de_passe, credit = :credit, administrateur = :administrateur, no_adresse = :no_adresse WHERE email = :email";
+    private final String UPDATE_CREDIT_BY_PSEUDO = " UPDATE UTILISATEURS SET credit = :credit WHERE pseudo = :pseudo";
+
+
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -62,12 +65,12 @@ public class UtilisateursDAOImpl implements UtilisateursDAO{
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("email", email);
 
-        jdbcTemplate.update(DELETE_BY_EMAIL, namedParameters);
+        jdbcTemplate.queryForObject(DELETE_BY_EMAIL, namedParameters, new UtilisateurRowMapper());
     }
 
     @Override
     public void updateUtilisateur(Utilisateur utilisateur) {
-        
+
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("pseudo", utilisateur.getPseudo());
         namedParameters.addValue("nom", utilisateur.getNom());
@@ -91,6 +94,17 @@ public class UtilisateursDAOImpl implements UtilisateursDAO{
     public Utilisateur create(Utilisateur utilisateur) {
         createUtilisateur(utilisateur);
         return utilisateur;
+    }
+
+    @Override
+    public void updateCreditByPseudo(Utilisateur utilisateur, int aRembourser) {
+
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("pseudo", utilisateur.getPseudo());
+        namedParameters.addValue("credit", utilisateur.getCredit() + aRembourser);
+
+        jdbcTemplate.update(UPDATE_CREDIT_BY_PSEUDO, namedParameters);
+
     }
 
 
