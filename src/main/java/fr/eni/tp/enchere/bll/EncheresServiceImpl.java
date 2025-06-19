@@ -110,8 +110,8 @@ public class EncheresServiceImpl implements EncheresService {
     }
 
     @Override
-    public String ajouterPhoto() {
-        return "";
+    public void ajouterPhoto(ArticleAVendre articleAVendre) {
+        articleAVendreDAO.updatePhoto(articleAVendre);
     }
 
     @Override

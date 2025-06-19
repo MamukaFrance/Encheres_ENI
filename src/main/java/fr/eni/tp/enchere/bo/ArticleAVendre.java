@@ -6,6 +6,7 @@ public class ArticleAVendre {
     private long id;
     private String nom;
     private String description;
+    private String photo;
     private LocalDate dateDebutEncheres;
     private LocalDate dateFinEncheres;
     private int statut;
@@ -41,6 +42,14 @@ public class ArticleAVendre {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public LocalDate getDateDebutEncheres() {

@@ -28,6 +28,8 @@ public class ArticleAVendreImpl implements ArticleAVendreDAO {
     // attention faut enlever le * pour le delete
     private final String DELETE = "DELETE FROM ARTICLES_A_VENDRE WHERE no_article =:id";
     private final String UPDATE = "UPDATE ARTICLES_A_VENDRE SET nom_article = :nomArticle, description = :description, date_debut_encheres = :dateDebutEncheres, date_fin_encheres = :dateFinEncheres, statut_enchere = :statutEnchere, prix_initial = :prixInitial, prix_vente = :prixVente, id_utilisateur = :idUtilisateur, no_categorie = :noCategorie, no_adresse_retrait = :noAdresseRetrait where no_article= :noArticle";
+    private final String UPDATE_PHOTO = "UPDATE ARTICLES_A_VENDRE SET photo = :photo WHERE no_article = :no_article";
+
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -89,8 +91,16 @@ public class ArticleAVendreImpl implements ArticleAVendreDAO {
         parameterSource.addValue("noAdresseRetrait", articleAVendre.getRetrait().getId());
 
         jdbcTemplate.update(UPDATE, parameterSource);
-
     }
+
+    @Override
+    public void updatePhoto(ArticleAVendre articleAVendre) {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("no_article", articleAVendre.getId());
+        parameterSource.addValue("photo", articleAVendre.getPhoto());
+        jdbcTemplate.update(UPDATE_PHOTO, parameterSource);
+    }
+
 
     @Override
     public void  delete(long id) {
@@ -98,6 +108,8 @@ public class ArticleAVendreImpl implements ArticleAVendreDAO {
         parameterSource.addValue("id", id);
         jdbcTemplate.update(DELETE, parameterSource);
     }
+
+
 
     public class ArticleAVendreRowMapper implements RowMapper<ArticleAVendre> {
 
@@ -108,6 +120,7 @@ public class ArticleAVendreImpl implements ArticleAVendreDAO {
             a.setId(rs.getLong("NO_ARTICLE"));
             a.setNom(rs.getString("NOM_ARTICLE"));
             a.setDescription(rs.getString("DESCRIPTION"));
+            a.setPhoto(rs.getString("photo"));
             a.setDateDebutEncheres(rs.getDate("date_debut_encheres").toLocalDate());
             a.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
             a.setStatut(rs.getInt("statut_enchere"));

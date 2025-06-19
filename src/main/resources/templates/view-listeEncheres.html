@@ -53,7 +53,7 @@
 
     <section class="affichageCartes">
         <ul class="flex-outer carte" data-th-each="article : ${articles}">
-            <img src="" alt="image produit">
+            <img th:src="@{'/' + ${article.photo}}" alt="Image article" />
             <div>
                 <a data-th-href="@{/detail-vente(id=${article.id})}"><li data-th-text="${article.nom}"></li></a>
                 <li data-th-text="'Prix : ' + ${article.prixVente}"></li>

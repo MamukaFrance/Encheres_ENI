@@ -16,4 +16,6 @@ public interface ArticleAVendreDAO {
     void update( ArticleAVendre articleAVendre);
 
     void  delete(long id);
+
+    void updatePhoto(ArticleAVendre articleAVendre);
 }

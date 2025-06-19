@@ -24,7 +24,7 @@ public interface EncheresService {
 
     public String detailVente();
 
-    public String ajouterPhoto();
+    void ajouterPhoto(ArticleAVendre articleAVendre);
 
     Adresse getAdresseById(long id);
 

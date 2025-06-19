@@ -74,12 +74,10 @@ public class EncheresController {
         articleAvendre.setPrixVente(articleAvendre.getPrixInitial());
         encheresService.nouvelleVente(articleAvendre);
 
-
         // on doit rajouter le vendeur avec le pseudo
         var nouvelId = articleAvendre.getId();
 
         return "redirect:/ajouter_photo?id=" + nouvelId;
-
     }
 
     @GetMapping("/vente-remportee")
@@ -92,18 +90,31 @@ public class EncheresController {
         ArticleAVendre articleAVendre = this.encheresService.voirEnchere(id);
         var enchere = new Enchere();
         enchere.setMontant(articleAVendre.getPrixVente() + 1);
+
         model.addAttribute("enchere", enchere);
-
-
         model.addAttribute("idArticle", id);
         model.addAttribute("categories", encheresService.getCategoriesById(articleAVendre.getCategorie().getId()));
         model.addAttribute("adresses", encheresService.getAdresseById(articleAVendre.getRetrait().getId()));
         model.addAttribute("dateDebutEncheres", articleAVendre.getDateDebutEncheres());
         model.addAttribute("dateFinEncheres", articleAVendre.getDateFinEncheres());
-
         model.addAttribute("articleAVendre", articleAVendre);
-        return "view-detailVente";
 
+
+        String imagePath = null;
+        String uploadRepertoire = "src/main/resources/static/images/upload/";
+        String[] extensions = {".jpg", ".png", ".jpeg"};
+
+        for (String ext : extensions) {
+            File imgFile = new File(uploadRepertoire + id + ext);
+            if (imgFile.exists()) {
+                imagePath = "/images/upload/" + id + ext;
+                break;
+            }
+        }
+
+        model.addAttribute("imagePath", imagePath);  // peut être null si pas d'image
+
+        return "view-detailVente";
     }
 
     @PostMapping("/detail-vente")
@@ -112,27 +123,20 @@ public class EncheresController {
         var principal = authentication.getPrincipal();
         personneConnecte = (Utilisateur) principal;
 
-
         enchere.setAcquereur(personneConnecte);
         ArticleAVendre articleAVendre = encheresService.voirEnchere(idArticle);
         enchere.setArticleAVendre(articleAVendre);
-
         enchere.setDate(LocalDateTime.now());
+
         if (personneConnecte.getCredit() > enchere.getMontant()) {
-
-
             encheresService.creerEnchere(enchere);
             redirectAttributes.addFlashAttribute("success", "Enchère placée avec succès!");
         } else {
             redirectAttributes.addFlashAttribute("error", "Crédit insuffisant pour enchérir.");
-
-
         }
-
 
         return "redirect:/detail-vente?id=" + idArticle;
     }
-
 
     @GetMapping("ajouter_photo")
     public String ajouterPhoto(@RequestParam(name = "id", required = true) long id, Model model) {
@@ -144,40 +148,33 @@ public class EncheresController {
 
     @PostMapping("ajouter_photo")
     public String ajouterPhoto(@RequestParam("photo") MultipartFile file,
-                                   @RequestParam("articleId") Long articleId,
-                                   RedirectAttributes redirectAttributes) {
+                               @RequestParam("articleId") Long articleId,
+                               RedirectAttributes redirectAttributes) throws IOException {
+
         if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Veuillez sélectionner un fichier à uploader.");
-            return "redirect:/ajouter_photo";
+            redirectAttributes.addFlashAttribute("message", "Veuillez sélectionner une image.");
+            return "redirect:/ajouter_photo?id=" + articleId;
         }
 
-        String uploadDir = "src/main/resources/static/images/upload/";
+        String uploadRepertoire = "src/main/resources/static/images/upload/";
+        String nomDuFichier = file.getOriginalFilename();
+        String extension = nomDuFichier.substring(nomDuFichier.lastIndexOf("."));
+        String nouveauNomFichier = articleId + extension;
 
-        try {
-            File dir = new File(uploadDir);
-            if (!dir.exists()) dir.mkdirs();
+        // 1. Enregistrer le fichier sur le disque
+        Files.write(Paths.get(uploadRepertoire + nouveauNomFichier), file.getBytes());
 
-            String originalFilename = file.getOriginalFilename();
-            String extension = "";
 
-            if (originalFilename != null && originalFilename.contains(".")) {
-                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            }
+        // 2. Enregistrer le chemin en base
+        String cheminFichier = "/images/upload/" + nouveauNomFichier;
+        ArticleAVendre article = encheresService.voirEnchere(articleId);
+        article.setPhoto(cheminFichier);
+        encheresService.ajouterPhoto(article);
 
-            String filename = articleId + extension;
-
-            Path filepath = Paths.get(uploadDir, filename);
-            Files.write(filepath, file.getBytes());
-
-            redirectAttributes.addFlashAttribute("message", "Photo uploadée avec succès : " + filename);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("message", "Erreur lors de l'upload : " + e.getMessage());
-        }
-
+        redirectAttributes.addFlashAttribute("message", "Photo enregistrée avec succès !");
         return "redirect:/detail-vente?id=" + articleId;
     }
+
 
 
     @GetMapping("/change-password")

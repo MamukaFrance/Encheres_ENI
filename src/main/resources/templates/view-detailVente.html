@@ -8,7 +8,7 @@
     <h1>Details de la vente</h1>
    <input type="hidden" data-th-href="@{/edit(id=${articleAVendre.id})}">
 
-    <form action="/"  method="post" data-th-object="${articleAVendre}">
+    <form class="details" action="/"  method="post" data-th-object="${articleAVendre}">
         <ul class="flex-outer">
             <li>
                 <label for="nom_article"> Nom d'article </label>
@@ -40,20 +40,18 @@
             </li>
             <li>
                 <label for="retrait">Retrait </label>
-                <input id="retrait" name="retrait"  th:value="${adresses.rue}+${adresses.codePostal}+${adresses.ville}" disabled>
+                <input id="retrait" name="retrait"
+                       th:value="${adresses.rue} + ', ' + ${adresses.codePostal} + ' ' + ${adresses.ville}" disabled>
                 </select>
             </li>
 
-            <img th:src="@{/upload/{filename}(filename=${articleAVendre.id + '.jpg'})}" alt="Photo article" />
-
+            <img th:src="@{'/' + ${articleAVendre.photo}}" alt="Image article" />
 
             <li>
-
-
                 <button>  <a class="retour" href="/" > Retour </a></button>
-
             </li>
         </ul>
+
         <div th:if="${error}" class="error-message" style="color: red;">
             <p th:text="${error}"></p>
         </div>

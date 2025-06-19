@@ -23,7 +23,7 @@ public class EnchereDaoImpl implements EnchereDAO{
             +" VALUES(:idUtilisateur, :noArticle, :montantEnchere, :dateEnchere)";
     private final String UPDATE = "UPDATE ENCHERES SET date_enchere = : dateEnchere WHERE id_utilisateur =:idUtilisateur AND no_article = :noArticle AND montant_enchere =:montantEnchere";
     private final String DELETE = "DELETE FROM ENCHERES WHERE id_utilisateur =:idUtilisateur AND no_article = :noArticle AND montant_enchere =:montantEnchere";
-private final String READ_By_Article = "Select * from encheres where no_article = :noArticle";
+    private final String READ_By_Article = "Select * from encheres where no_article = :noArticle";
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -100,5 +100,6 @@ private final String READ_By_Article = "Select * from encheres where no_article 
             return enchere;
         }
     }
+
 }
 

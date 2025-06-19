@@ -50,6 +50,8 @@ public class SecurityConfiguration {
                     auth.requestMatchers(HttpMethod.GET,"/error").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/css/**").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/images/**").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/images/upload/**").permitAll();
+                    auth.requestMatchers(HttpMethod.POST,"/images/upload/**").permitAll();
 
                     auth.requestMatchers(HttpMethod.GET,"/login").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/register").permitAll();
