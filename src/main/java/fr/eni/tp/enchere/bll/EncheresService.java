@@ -12,7 +12,7 @@ public interface EncheresService {
 
     public List<ArticleAVendre> consulterEncheres();
     public Enchere creerEnchere (Enchere enchere);
-
+public void suppprimerArticleAvendreETRemboursementEnchere (ArticleAVendre articleAVendre);
     public ArticleAVendre voirEnchere(Long id);
 
     public void nouvelleVente( ArticleAVendre articleAvendre);

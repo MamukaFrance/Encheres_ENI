@@ -24,6 +24,7 @@ public class EnchereDaoImpl implements EnchereDAO{
     private final String UPDATE = "UPDATE ENCHERES SET date_enchere = : dateEnchere WHERE id_utilisateur =:idUtilisateur AND no_article = :noArticle AND montant_enchere =:montantEnchere";
     private final String DELETE = "DELETE FROM ENCHERES WHERE id_utilisateur =:idUtilisateur AND no_article = :noArticle AND montant_enchere =:montantEnchere";
     private final String READ_By_Article = "Select * from encheres where no_article = :noArticle";
+    private final String DELETE_BY_NO_ARTICLE = "DELETE FROM ENCHERES WHERE no_article = :noArticle";
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -81,6 +82,12 @@ public class EnchereDaoImpl implements EnchereDAO{
         jdbcTemplate.update(DELETE, mapSqlParameterSource);
     }
 
+    @Override
+    public void deleteByNoArticle(Long noArticle) {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("noArticle", noArticle);
+        jdbcTemplate.update(DELETE_BY_NO_ARTICLE, parameterSource);
+    }
     public class EnchereRowMapper implements RowMapper<Enchere> {
 
         @Override

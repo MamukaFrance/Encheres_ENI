@@ -83,6 +83,23 @@ public class EncheresServiceImpl implements EncheresService {
     }
 
     @Override
+    public void suppprimerArticleAvendreETRemboursementEnchere(ArticleAVendre articleAVendre) {
+
+        List<Enchere> ancienEncheres = enchereDAO.readByNo_Article(articleAVendre.getId());
+        Enchere ancienEnchere = ancienEncheres.stream().max(Comparator.comparingInt(Enchere::getMontant)).orElse(null);
+        if (ancienEnchere != null) {
+            //remboursement ancienne enchere
+            int aRembourser = ancienEnchere.getMontant();
+            var pseudoAncienEnchere = ancienEnchere.getAcquereur();
+            Utilisateur pseudoARembourser = utilisateursDAO.readUtilisateurByPseudo(pseudoAncienEnchere.getPseudo());
+            utilisateursDAO.updateCreditByPseudo(pseudoARembourser, aRembourser);
+        }
+        enchereDAO.deleteByNoArticle(articleAVendre.getId());
+        articleAVendreDAO.delete(articleAVendre.getId());
+
+    }
+
+    @Override
     public ArticleAVendre voirEnchere(Long id) {
         return articleAVendreDAO.read(id);
     }

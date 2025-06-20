@@ -14,4 +14,6 @@ public interface EnchereDAO {
     List<Enchere> readByNo_Article(Long id);
     void update(Enchere enchere);
     void delete(String pseudo, Long id, int montant);
+
+    public void deleteByNoArticle(Long noArticle);
 }
