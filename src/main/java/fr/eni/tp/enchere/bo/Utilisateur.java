@@ -112,12 +112,21 @@ public class Utilisateur implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (!this.isActiv) {
+            // Utilisateur inactif, pas de rôle
+            return Collections.emptyList();
+        }
         if (this.admin) {
             return Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        } else {
-            return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
         }
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
     }
+
+    @Override
+    public boolean isEnabled() {
+        return this.isActiv;
+    }
+
 
     @Override
     public String getPassword() {

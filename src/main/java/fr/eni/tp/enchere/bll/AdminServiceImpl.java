@@ -1,5 +1,6 @@
 package fr.eni.tp.enchere.bll;
 
+import fr.eni.tp.enchere.bo.ArticleAVendre;
 import fr.eni.tp.enchere.bo.Enchere;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import fr.eni.tp.enchere.dal.AdresseDAO;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Primary
 @Service
@@ -20,6 +22,8 @@ public class AdminServiceImpl implements AdminService{
     private UtilisateursDAO utilisateursDAO;
     @Autowired
     private EnchereDAO enchereDAO;
+    @Autowired
+    private EncheresService encheresService;
 
         public AdminServiceImpl(UtilisateursDAO utilisateursDAO, EnchereDAO enchereDAO) {
             this.utilisateursDAO = utilisateursDAO;
@@ -48,6 +52,13 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public void supprimerCompte(Utilisateur utilisateur) {
+            List<ArticleAVendre> encheres=encheresService.consulterEncheres();
+       List<ArticleAVendre> enchereasupprimer = encheres.stream().filter(articleAVendre -> articleAVendre.getVendeur().getPseudo().equals(utilisateur.getPseudo())).toList();
+
+       if(enchereasupprimer!=null){
+           enchereasupprimer.forEach(articleAVendre -> encheresService.suppprimerArticleAvendreETRemboursementEnchere(articleAVendre));
+       }
+
         utilisateursDAO.deleteUtilisateur(utilisateur.getEmail());
     }
 

@@ -60,19 +60,7 @@ public class UtilisateurController {
         model.addAttribute("vendeur", vendeur);
         return "view-profilVendeur";
     }
-//    @PostMapping("/vendeur")
-//    public String desactiverCompte(@RequestParam("pseudo") String pseudoVendeur) {
-//        Utilisateur vendeur = utilisateurService.findByPseudo(pseudoVendeur);
-//
-//       if (vendeur.getActiv()){
-//           vendeur.setActiv(false);
-//           adminService.desactiverCompte(vendeur);
-//       } else {
-//           vendeur.setActiv(true);
-//           adminService.desactiverCompte(vendeur);
-//       }
-//        return "redirect:/" ;
-//    }
+
 
     @PostMapping("/vendeur")
     public String gererCompte(
