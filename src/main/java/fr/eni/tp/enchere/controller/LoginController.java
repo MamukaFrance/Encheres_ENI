@@ -25,13 +25,11 @@ public class LoginController {
     private final UtilisateurService utilisateurService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
-    private final UtilisateurServiceImpl utilisateurServiceImpl;
 
     public LoginController(UtilisateurService utilisateurService, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, UtilisateurServiceImpl utilisateurServiceImpl) {
         this.utilisateurService = utilisateurService;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
-        this.utilisateurServiceImpl = utilisateurServiceImpl;
     }
 
     @GetMapping("/login")

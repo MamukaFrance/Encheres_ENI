@@ -76,6 +76,9 @@
       <th:block class="boutons" th:if="${#authorization.expression('isAuthenticated()')}">
         <input class="btnValid" type="submit" value="Modifier">
       </th:block>
+    <a class="link" data-th-href="@{/change-password(pseudo=${profil.pseudo})}">Modifier mot de passe</a>
+
+    <a class="link" data-th-href="@{/}">Suprimer mon compte</a>
       <input class="btnAnnul" type="button" value="Annuler">
   </ul>
 

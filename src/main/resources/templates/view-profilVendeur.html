@@ -5,38 +5,74 @@
 <title>Profil</title>
 </head>
 <body>
-    <main>
-        <form  action="" method="post" >
-            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                <h1 th:text="${vendeur.pseudo}"></h1>
+<main>
+    <form >
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <h1 th:text="${vendeur.pseudo}"></h1>
+        </th:block>
+        <ul class="flex-outer" style="display: block; width: 50%; margin: 0 auto">
+            <li>
+                <label for="inputNom">Nom : <span>*</span></label>
+                <input class="saisie" type="text" id="inputNom" th:field="${vendeur.nom}" required disabled>
+            </li>
+            <li>
+                <label for="inputPrenom">Prénom : <span>*</span></label>
+                <input class="saisie" type="text" id="inputPrenom" th:field="${vendeur.prenom}" required disabled>
+            </li>
+            <li>
+                <label for="inputEmail">Email : <span>*</span></label>
+                <input class="saisie" type="email" id="inputEmail" th:field="${vendeur.email}" required disabled>
+            </li>
+            <li>
+                <label for="inputTelephone">Téléphone : <span>*</span></label>
+                <input class="saisie" type="tel" id="inputTelephone" th:field="${vendeur.telephone}" disabled>
+            </li>
+        </ul>
+        <ul class="boutons">
+            <th:block class="boutons" th:if="${#authentication.name}!=${vendeur.email}">
+                <a data-th-href="@{/}">Retour</a>
             </th:block>
-            <ul class="flex-outer" style="display: block; width: 50%; margin: 0 auto">
-                <li>
-                    <label for="inputNom">Nom : <span>*</span></label>
-                    <input class="saisie" type="text" id="inputNom" th:field="${vendeur.nom}" required disabled>
-                </li>
-                <li>
-                    <label for="inputPrenom">Prénom : <span>*</span></label>
-                    <input class="saisie" type="text" id="inputPrenom" th:field="${vendeur.prenom}" required disabled>
-                </li>
-                <li>
-                    <label for="inputEmail">Email : <span>*</span></label>
-                    <input class="saisie" type="email" id="inputEmail" th:field="${vendeur.email}" required disabled>
-                </li>
-                <li>
-                    <label for="inputTelephone">Téléphone : <span>*</span></label>
-                    <input class="saisie" type="tel" id="inputTelephone" th:field="${vendeur.telephone}" disabled>
-                </li>
-            </ul>
-            <ul class="boutons">
-                <th:block class="boutons" th:if="${#authentication.name}!=${vendeur.email}">
-                    <a data-th-href="@{/}">Retour</a>
-                </th:block>
-                <th:block class="boutons" th:if="${#authentication.name}==${vendeur.email}">
-                    <a data-th-href="@{/profil}">Modifier</a>
-                </th:block>
-            </ul>
-        </form>
-    </main>
+            <th:block class="boutons" th:if="${#authentication.name}==${vendeur.email}">
+                <a data-th-href="@{/profil}">Modifier</a>
+            </th:block>
+
+
+        </ul>
+    </form>
+
+<!--    <form th:action="@{/profil/vendeur}" method="post">-->
+<!--        <input type="hidden" name="pseudo" th:value="${vendeur.pseudo}" />-->
+
+<!--        <th:block th:if="${#authorization.expression('hasRole(''ADMIN'')') and vendeur.activ}">-->
+<!--            <button type="submit" class="link">Désactiver le Compte</button>-->
+<!--        </th:block>-->
+
+<!--        <th:block th:if="${#authorization.expression('hasRole(''ADMIN'')') and !vendeur.activ}">-->
+<!--            <button type="submit" class="link">Activer le Compte</button>-->
+<!--        </th:block>-->
+
+<!--        <th:block th:if="${#authorization.expression('hasRole(''ADMIN'')')}">-->
+<!--            <button type="submit" class="link">Supprimer le Compte</button>-->
+<!--        </th:block>-->
+
+<!--    </form>-->
+
+    <form th:action="@{/profil/vendeur}" method="post">
+        <input type="hidden" name="pseudo" th:value="${vendeur.pseudo}" />
+
+        <th:block th:if="${#authorization.expression('hasRole(''ADMIN'')') and vendeur.activ}">
+            <button type="submit" name="action" value="desactiver" class="link">Désactiver le Compte</button>
+        </th:block>
+
+        <th:block th:if="${#authorization.expression('hasRole(''ADMIN'')') and !vendeur.activ}">
+            <button type="submit" name="action" value="activer" class="link">Activer le Compte</button>
+        </th:block>
+
+        <th:block th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <button type="submit" name="action" value="supprimer" class="link">Supprimer le Compte</button>
+        </th:block>
+    </form>
+
+</main>
 </body>
 </html>

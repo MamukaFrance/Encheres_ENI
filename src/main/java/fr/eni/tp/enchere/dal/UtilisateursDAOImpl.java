@@ -12,16 +12,13 @@ import java.util.List;
 @Repository
 public class UtilisateursDAOImpl implements UtilisateursDAO {
 
-    private final String FIND_BY_PSEUDO = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse FROM UTILISATEURS WHERE pseudo = :pseudo";
-    private final String FIND_BY_EMAIL = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse FROM UTILISATEURS WHERE email = :email";
-    private final String INSERT = "INSERT INTO UTILISATEURS(pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse)  VALUES (:pseudo, :nom, :prenom, :email, :telephone, :mot_de_passe, :credit, :administrateur, :no_adresse) ";
+    private final String FIND_BY_PSEUDO = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse, is_activ FROM UTILISATEURS WHERE pseudo = :pseudo";
+    private final String FIND_BY_EMAIL = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse, is_activ FROM UTILISATEURS WHERE email = :email";
+    private final String INSERT = "INSERT INTO UTILISATEURS(pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse, is_activ)  VALUES (:pseudo, :nom, :prenom, :email, :telephone, :mot_de_passe, :credit, :administrateur, :no_adresse, :is_activ) ";
 
     private final String DELETE_BY_EMAIL = "DELETE FROM UTILISATEURS WHERE email = :email";
-    private final String UPDATE = "UPDATE UTILISATEURS SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, mot_de_passe = :mot_de_passe, credit = :credit, administrateur = :administrateur, no_adresse = :no_adresse WHERE email = :email";
+    private final String UPDATE = "UPDATE UTILISATEURS SET pseudo = :pseudo, nom = :nom, prenom = :prenom, telephone = :telephone, mot_de_passe = :mot_de_passe, credit = :credit, administrateur = :administrateur, no_adresse = :no_adresse, is_activ = :is_activ WHERE email = :email";
     private final String UPDATE_CREDIT_BY_PSEUDO = " UPDATE UTILISATEURS SET credit = :credit WHERE pseudo = :pseudo";
-
-
-
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -39,6 +36,7 @@ public class UtilisateursDAOImpl implements UtilisateursDAO {
         namedParameters.addValue("credit", utilisateur.getCredit());
         namedParameters.addValue("administrateur", utilisateur.isAdmin());
         namedParameters.addValue("no_adresse", utilisateur.getAdresse().getId());
+        namedParameters.addValue("is_activ", utilisateur.getActiv());
         jdbcTemplate.update(INSERT, namedParameters);
 
 
@@ -65,7 +63,7 @@ public class UtilisateursDAOImpl implements UtilisateursDAO {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("email", email);
 
-        jdbcTemplate.queryForObject(DELETE_BY_EMAIL, namedParameters, new UtilisateurRowMapper());
+        jdbcTemplate.update(DELETE_BY_EMAIL, namedParameters);
     }
 
     @Override
@@ -81,6 +79,7 @@ public class UtilisateursDAOImpl implements UtilisateursDAO {
         namedParameters.addValue("credit", utilisateur.getCredit());
         namedParameters.addValue("administrateur", utilisateur.isAdmin());
         namedParameters.addValue("no_adresse", utilisateur.getAdresse().getId());
+        namedParameters.addValue("is_activ", utilisateur.getActiv());
 
         jdbcTemplate.update(UPDATE, namedParameters);
     }

@@ -70,16 +70,19 @@ public class SecurityConfiguration {
                     auth.requestMatchers(HttpMethod.GET,"/vente-remportee").hasAnyRole("USER");
                     //auth.requestMatchers(HttpMethod.GET,"/ajouter_photo").hasAnyRole("USER");
                     //auth.requestMatchers(HttpMethod.POST,"/ajouter_photo").hasAnyRole("USER");
-                    auth.requestMatchers(HttpMethod.GET,"/profil").hasAnyRole("USER");
-                    auth.requestMatchers(HttpMethod.GET,"/detail-vente").hasAnyRole("USER");
+                    auth.requestMatchers(HttpMethod.GET,"/profil").hasAnyRole("USER","ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,"/detail-vente").hasAnyRole("USER","ADMIN");
                     auth.requestMatchers(HttpMethod.POST,"/detail-vente").hasAnyRole("USER");
                     auth.requestMatchers(HttpMethod.GET,"/profil/sauvegarder").hasAnyRole("USER");
-                    auth.requestMatchers(HttpMethod.GET,"/profil/vendeur").hasAnyRole("USER");
-
-                    auth.requestMatchers(HttpMethod.GET,"/detail-vente").hasAnyRole("ADMIN");
-                    auth.requestMatchers(HttpMethod.POST,"/detail-vente").hasAnyRole("ADMIN");
-                    auth.requestMatchers(HttpMethod.GET,"/profil/vendeur").hasAnyRole("USER");
+                    auth.requestMatchers(HttpMethod.GET,"/profil/vendeur").hasAnyRole("USER","ADMIN");
                     auth.requestMatchers(HttpMethod.POST,"/profil/vendeur").hasAnyRole("ADMIN");
+
+
+
+//                    auth.requestMatchers(HttpMethod.GET,"/detail-vente").hasAnyRole("ADMIN");
+//                    auth.requestMatchers(HttpMethod.POST,"/detail-vente").hasAnyRole("ADMIN");
+//                    auth.requestMatchers(HttpMethod.GET,"/admin/profil").hasAnyRole("ADMIN");
+//                    auth.requestMatchers(HttpMethod.POST,"/admin/profil").hasAnyRole("ADMIN");
 
                     auth.anyRequest().authenticated();
                 })

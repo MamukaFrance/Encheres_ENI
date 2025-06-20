@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin")
 public class AdminController {
     private UtilisateurService utilisateurService;
     private EncheresService encheresService;
@@ -23,7 +22,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/profil")
+    @GetMapping("/admin-profil")
     public String afficherProfil(@RequestParam String pseudo, Model model) {
 
         Utilisateur utilisateur = utilisateurService.get(pseudo);

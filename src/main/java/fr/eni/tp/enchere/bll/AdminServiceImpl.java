@@ -43,12 +43,12 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public void desactiverCompte(Utilisateur utilisateur) {
-
+        utilisateursDAO.updateUtilisateur(utilisateur);
     }
 
     @Override
     public void supprimerCompte(Utilisateur utilisateur) {
-
+        utilisateursDAO.deleteUtilisateur(utilisateur.getEmail());
     }
 
     @Override

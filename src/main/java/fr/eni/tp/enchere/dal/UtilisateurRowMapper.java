@@ -20,6 +20,7 @@ import java.sql.SQLException;
             f.setMotDePasse(rs.getString("mot_de_passe"));
             f.setCredit(rs.getInt("credit"));
             f.setAdmin(rs.getBoolean("administrateur"));
+            f.setActiv(rs.getBoolean("is_activ"));
 
             Adresse adresse = new Adresse();
             adresse.setId(rs.getLong("no_adresse"));

@@ -19,6 +19,7 @@ public class Utilisateur implements UserDetails {
     private int credit = 10;
     private boolean admin;
     private Adresse adresse;
+    private Boolean isActiv = true;
 
     public Utilisateur(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.email = username;
@@ -99,6 +100,14 @@ public class Utilisateur implements UserDetails {
 
     public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
+    }
+
+    public Boolean getActiv() {
+        return isActiv;
+    }
+
+    public void setActiv(Boolean activ) {
+        isActiv = activ;
     }
 
     @Override
