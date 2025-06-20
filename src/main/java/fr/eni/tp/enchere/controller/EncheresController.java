@@ -65,119 +65,122 @@ public class EncheresController {
     }
 
     @PostMapping("/nouvelle-vente")
-    public String nouvelleVente(@Valid @ModelAttribute("articleAvendre") ArticleAVendre articleAvendre, BindingResult result, Model model, Authentication authentication) {
+    public String nouvelleVente(@Valid @ModelAttribute("articleAvendre") ArticleAVendre articleAvendre, BindingResult result, Model model, Authentication authentication, @RequestParam("action") String action) {
         Utilisateur personneConnecte = null;
         var principal = authentication.getPrincipal();
         personneConnecte = (Utilisateur) principal;
-
         articleAvendre.setVendeur(personneConnecte);
         articleAvendre.setPrixVente(articleAvendre.getPrixInitial());
         encheresService.nouvelleVente(articleAvendre);
-
-        // on doit rajouter le vendeur avec le pseudo
-        var nouvelId = articleAvendre.getId();
-
-        return "redirect:/ajouter_photo?id=" + nouvelId;
+        Long nouvelId = articleAvendre.getId();
+        if ("ajoutPhoto".equals(action)) {
+            return "redirect:/ajouter_photo?id=" + nouvelId;
+        } else if ("enregistrerArticle".equals(action)) {
+            return "redirect:/";
+        }
+        return "redirect:/nouvelle-vente"; // fallback}}
     }
 
-    @GetMapping("/vente-remportee")
-    public String venteRemportee() {
-        return "view-venteRemportee";
-    }
+        @GetMapping("/vente-remportee")
+        public String venteRemportee () {
+            return "view-venteRemportee";
+        }
 
-    @GetMapping("/detail-vente")
-    public String detailVente(@RequestParam(name = "id", required = true) long id, Model model) {
-        ArticleAVendre articleAVendre = this.encheresService.voirEnchere(id);
-        var enchere = new Enchere();
-        enchere.setMontant(articleAVendre.getPrixVente() + 1);
+        @GetMapping("/detail-vente")
+        public String detailVente ( @RequestParam(name = "id", required = true) long id, Model model){
+            ArticleAVendre articleAVendre = this.encheresService.voirEnchere(id);
+            var enchere = new Enchere();
+            enchere.setMontant(articleAVendre.getPrixVente() + 1);
 
-        model.addAttribute("enchere", enchere);
-        model.addAttribute("idArticle", id);
-        model.addAttribute("categories", encheresService.getCategoriesById(articleAVendre.getCategorie().getId()));
-        model.addAttribute("adresses", encheresService.getAdresseById(articleAVendre.getRetrait().getId()));
-        model.addAttribute("dateDebutEncheres", articleAVendre.getDateDebutEncheres());
-        model.addAttribute("dateFinEncheres", articleAVendre.getDateFinEncheres());
-        model.addAttribute("articleAVendre", articleAVendre);
-        model.addAttribute("enchereur", encheresService.voirutilisateurparrapportalidarticle(id));
+            model.addAttribute("enchere", enchere);
+            model.addAttribute("idArticle", id);
+            model.addAttribute("categories", encheresService.getCategoriesById(articleAVendre.getCategorie().getId()));
+            model.addAttribute("adresses", encheresService.getAdresseById(articleAVendre.getRetrait().getId()));
+            model.addAttribute("dateDebutEncheres", articleAVendre.getDateDebutEncheres());
+            model.addAttribute("dateFinEncheres", articleAVendre.getDateFinEncheres());
+            model.addAttribute("articleAVendre", articleAVendre);
+            model.addAttribute("enchereur", encheresService.voirutilisateurparrapportalidarticle(id));
 
-        String imagePath = null;
-        String uploadRepertoire = "src/main/resources/static/images/upload/";
-        String[] extensions = {".jpg", ".png", ".jpeg"};
+            String imagePath = null;
+            String uploadRepertoire = "src/main/resources/static/images/upload/";
+            String[] extensions = {".jpg", ".png", ".jpeg"};
 
-        for (String ext : extensions) {
-            File imgFile = new File(uploadRepertoire + id + ext);
-            if (imgFile.exists()) {
-                imagePath = "images/upload/" + id + ext;
-                break;
+            for (String ext : extensions) {
+                File imgFile = new File(uploadRepertoire + id + ext);
+                if (imgFile.exists()) {
+                    imagePath = "images/upload/" + id + ext;
+                    break;
+                }
             }
+
+            model.addAttribute("imagePath", imagePath);  // peut être null si pas d'image
+
+            return "view-detailVente";
         }
 
-        model.addAttribute("imagePath", imagePath);  // peut être null si pas d'image
+        @PostMapping("/detail-vente")
+        public String detailVente (@Valid @ModelAttribute("enchere") Enchere enchere, BindingResult result, Model
+        model, Authentication authentication,@RequestParam(name = "idArticle") long idArticle, RedirectAttributes
+        redirectAttributes){
+            Utilisateur personneConnecte = null;
+            var principal = authentication.getPrincipal();
+            personneConnecte = (Utilisateur) principal;
 
-        return "view-detailVente";
-    }
+            enchere.setAcquereur(personneConnecte);
+            ArticleAVendre articleAVendre = encheresService.voirEnchere(idArticle);
+            enchere.setArticleAVendre(articleAVendre);
+            enchere.setDate(LocalDateTime.now());
 
-    @PostMapping("/detail-vente")
-    public String detailVente(@Valid @ModelAttribute("enchere") Enchere enchere, BindingResult result, Model model, Authentication authentication, @RequestParam(name = "idArticle") long idArticle, RedirectAttributes redirectAttributes) {
-        Utilisateur personneConnecte = null;
-        var principal = authentication.getPrincipal();
-        personneConnecte = (Utilisateur) principal;
+            if (personneConnecte.getCredit() > enchere.getMontant()) {
+                encheresService.creerEnchere(enchere);
+                redirectAttributes.addFlashAttribute("success", "Enchère placée avec succès!");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Crédit insuffisant pour enchérir.");
+            }
 
-        enchere.setAcquereur(personneConnecte);
-        ArticleAVendre articleAVendre = encheresService.voirEnchere(idArticle);
-        enchere.setArticleAVendre(articleAVendre);
-        enchere.setDate(LocalDateTime.now());
-
-        if (personneConnecte.getCredit() > enchere.getMontant()) {
-            encheresService.creerEnchere(enchere);
-            redirectAttributes.addFlashAttribute("success", "Enchère placée avec succès!");
-        } else {
-            redirectAttributes.addFlashAttribute("error", "Crédit insuffisant pour enchérir.");
+            return "redirect:/detail-vente?id=" + idArticle;
         }
 
-        return "redirect:/detail-vente?id=" + idArticle;
-    }
+        @GetMapping("ajouter_photo")
+        public String ajouterPhoto ( @RequestParam(name = "id", required = true) long id, Model model){
+            ArticleAVendre articleAVendre = this.encheresService.voirEnchere(id);
+            model.addAttribute("articleAVendre", articleAVendre);
 
-    @GetMapping("ajouter_photo")
-    public String ajouterPhoto(@RequestParam(name = "id", required = true) long id, Model model) {
-        ArticleAVendre articleAVendre = this.encheresService.voirEnchere(id);
-        model.addAttribute("articleAVendre", articleAVendre);
-
-        return "view-ajouterPhoto";
-    }
-
-    @PostMapping("ajouter_photo")
-    public String ajouterPhoto(@RequestParam("photo") MultipartFile file,
-                               @RequestParam("articleId") Long articleId,
-                               RedirectAttributes redirectAttributes) throws IOException {
-
-        if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Veuillez sélectionner une image.");
-            return "redirect:/ajouter_photo?id=" + articleId;
+            return "view-ajouterPhoto";
         }
 
-        String uploadRepertoire = "src/main/resources/static/images/upload/";
-        String nomDuFichier = file.getOriginalFilename();
-        String extension = nomDuFichier.substring(nomDuFichier.lastIndexOf("."));
-        String nouveauNomFichier = articleId + extension;
+        @PostMapping("ajouter_photo")
+        public String ajouterPhoto (@RequestParam("photo") MultipartFile file,
+                @RequestParam("articleId") Long articleId,
+                RedirectAttributes redirectAttributes) throws IOException {
 
-        // 1. Enregistrer le fichier sur le disque
-        Files.write(Paths.get(uploadRepertoire + nouveauNomFichier), file.getBytes());
+            if (file.isEmpty()) {
+                redirectAttributes.addFlashAttribute("message", "Veuillez sélectionner une image.");
+                return "redirect:/ajouter_photo?id=" + articleId;
+            }
+
+            String uploadRepertoire = "src/main/resources/static/images/upload/";
+            String nomDuFichier = file.getOriginalFilename();
+            String extension = nomDuFichier.substring(nomDuFichier.lastIndexOf("."));
+            String nouveauNomFichier = articleId + extension;
+
+            // 1. Enregistrer le fichier sur le disque
+            Files.write(Paths.get(uploadRepertoire + nouveauNomFichier), file.getBytes());
 
 
-        // 2. Enregistrer le chemin en base
-        String cheminFichier = "images/upload/" + nouveauNomFichier;
-        ArticleAVendre article = encheresService.voirEnchere(articleId);
-        article.setPhoto(cheminFichier);
-        encheresService.ajouterPhoto(article);
+            // 2. Enregistrer le chemin en base
+            String cheminFichier = "images/upload/" + nouveauNomFichier;
+            ArticleAVendre article = encheresService.voirEnchere(articleId);
+            article.setPhoto(cheminFichier);
+            encheresService.ajouterPhoto(article);
 
-        redirectAttributes.addFlashAttribute("message", "Photo enregistrée avec succès !");
-        return "redirect:/detail-vente?id=" + articleId;
+            redirectAttributes.addFlashAttribute("message", "Photo enregistrée avec succès !");
+            return "redirect:/detail-vente?id=" + articleId;
+        }
+
+
+        @GetMapping("/change-password")
+        public String changePassword () {
+            return "view-changerMotDePasse";
+        }
     }
-
-
-    @GetMapping("/change-password")
-    public String changePassword() {
-        return "view-changerMotDePasse";
-    }
-}
