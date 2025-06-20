@@ -12,9 +12,7 @@
   <h1>Nouveau Profil</h1>
 </th:block>
 
-  <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-    <h1 th:text="'Profil de ' + ${profil.pseudo} + ' (Crédit restant :' + ${profil.credit} + ')'"></h1>
-  </th:block>
+  <th:block th:if="${#authorization.expression('isAuthenticated()')}">  <h1>    Profil de <span th:text="${profil.pseudo}"></span>    (<span style="color: green; font-size: 1em;">Crédit restant : <span th:text="${profil.credit}"></span></span>)  </h1></th:block>
 
   <ul class="flex-outer">
     <li>

@@ -105,6 +105,18 @@ public class EncheresServiceImpl implements EncheresService {
     }
 
     @Override
+    public String voirutilisateurparrapportalidarticle(Long id) {
+
+        List<Enchere> ancienEncheres = enchereDAO.readByNo_Article(id);
+        Enchere ancienEnchere = ancienEncheres.stream().max(Comparator.comparingInt(Enchere::getMontant)).orElse(null);
+        if (ancienEnchere != null) {
+        var pseudoAncienEnchere = ancienEnchere.getAcquereur();
+
+        return pseudoAncienEnchere.getPseudo();}
+        return "pas d'enchere en cours";
+    }
+
+    @Override
     public void nouvelleVente(ArticleAVendre articleAvendre) {
         articleAVendreDAO.create(articleAvendre);
     }

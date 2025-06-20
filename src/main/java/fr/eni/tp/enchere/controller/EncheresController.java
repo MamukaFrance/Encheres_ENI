@@ -98,7 +98,7 @@ public class EncheresController {
         model.addAttribute("dateDebutEncheres", articleAVendre.getDateDebutEncheres());
         model.addAttribute("dateFinEncheres", articleAVendre.getDateFinEncheres());
         model.addAttribute("articleAVendre", articleAVendre);
-
+        model.addAttribute("enchereur", encheresService.voirutilisateurparrapportalidarticle(id));
 
         String imagePath = null;
         String uploadRepertoire = "src/main/resources/static/images/upload/";
@@ -174,7 +174,6 @@ public class EncheresController {
         redirectAttributes.addFlashAttribute("message", "Photo enregistrée avec succès !");
         return "redirect:/detail-vente?id=" + articleId;
     }
-
 
 
     @GetMapping("/change-password")
