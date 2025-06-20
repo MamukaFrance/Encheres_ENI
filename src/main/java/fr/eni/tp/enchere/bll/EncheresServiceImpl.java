@@ -1,9 +1,6 @@
 package fr.eni.tp.enchere.bll;
 
-import fr.eni.tp.enchere.bo.Adresse;
-import fr.eni.tp.enchere.bo.ArticleAVendre;
-import fr.eni.tp.enchere.bo.Categorie;
-import fr.eni.tp.enchere.bo.Enchere;
+import fr.eni.tp.enchere.bo.*;
 import fr.eni.tp.enchere.dal.*;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -47,14 +44,16 @@ public class EncheresServiceImpl implements EncheresService {
         return articlesFiltres;
 
     }
-@Transactional
+
+    @Transactional
     @Override
     public Enchere creerEnchere(Enchere enchere) {
+
         var idAModifier = enchere.getArticleAVendre().getId();
         List<Enchere> ancienEncheres = enchereDAO.readByNo_Article(idAModifier);
 
-        Enchere ancienEnchere= ancienEncheres.stream().max(Comparator.comparingInt(Enchere::getMontant)).orElse(null);
-        var aRembourser = ancienEnchere.getMontant();
+        Enchere ancienEnchere = ancienEncheres.stream().max(Comparator.comparingInt(Enchere::getMontant)).orElse(null);
+
 
         Enchere createdEnchere = enchereDAO.create(enchere);
 
@@ -65,15 +64,19 @@ public class EncheresServiceImpl implements EncheresService {
             articleAVendreAModifier.setPrixVente(enchere.getMontant());
             articleAVendreDAO.update(articleAVendreAModifier);
 
-//remboursement ancienne enchere
-            var pseudoAncienEnchere = ancienEnchere.getAcquereur();
-            utilisateursDAO.updateCreditByPseudo(pseudoAncienEnchere, aRembourser);
 
 //debit sur nouvelle enchere
-            var aDebiter=(enchere.getMontant()-(enchere.getMontant())*2);
-            utilisateursDAO.updateCreditByPseudo(enchere.getAcquereur(),aDebiter);
+            var aDebiter = (enchere.getMontant() - (enchere.getMontant()) * 2);
+            utilisateursDAO.updateCreditByPseudo(enchere.getAcquereur(), aDebiter);
 
+            if (ancienEnchere != null) {
+//remboursement ancienne enchere
+                int aRembourser = ancienEnchere.getMontant();
+                var pseudoAncienEnchere = ancienEnchere.getAcquereur();
+                Utilisateur pseudoARembourser = utilisateursDAO.readUtilisateurByPseudo(pseudoAncienEnchere.getPseudo());
+                utilisateursDAO.updateCreditByPseudo(pseudoARembourser, aRembourser);
 
+            }
         }
 
         return enchere;
