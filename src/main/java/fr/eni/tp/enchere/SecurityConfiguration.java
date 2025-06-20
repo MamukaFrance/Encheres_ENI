@@ -65,8 +65,8 @@ public class SecurityConfiguration {
 
                     auth.requestMatchers(HttpMethod.GET,"/profil/change-password").hasAnyRole("USER");
                     auth.requestMatchers(HttpMethod.GET,"/enchere").hasAnyRole("USER");
-                    auth.requestMatchers(HttpMethod.GET,"/nouvelle-vente").hasAnyRole("USER");
-                    auth.requestMatchers(HttpMethod.POST,"/nouvelle-vente").hasAnyRole("USER");
+                    auth.requestMatchers(HttpMethod.GET,"/nouvelle-vente").hasAnyRole("USER","ADMIN");
+                    auth.requestMatchers(HttpMethod.POST,"/nouvelle-vente").hasAnyRole("USER","ADMIN");
                     auth.requestMatchers(HttpMethod.GET,"/vente-remportee").hasAnyRole("USER");
                     //auth.requestMatchers(HttpMethod.GET,"/ajouter_photo").hasAnyRole("USER");
                     //auth.requestMatchers(HttpMethod.POST,"/ajouter_photo").hasAnyRole("USER");

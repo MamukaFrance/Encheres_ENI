@@ -107,7 +107,7 @@ public class EncheresController {
         for (String ext : extensions) {
             File imgFile = new File(uploadRepertoire + id + ext);
             if (imgFile.exists()) {
-                imagePath = "/images/upload/" + id + ext;
+                imagePath = "images/upload/" + id + ext;
                 break;
             }
         }
@@ -166,7 +166,7 @@ public class EncheresController {
 
 
         // 2. Enregistrer le chemin en base
-        String cheminFichier = "/images/upload/" + nouveauNomFichier;
+        String cheminFichier = "images/upload/" + nouveauNomFichier;
         ArticleAVendre article = encheresService.voirEnchere(articleId);
         article.setPhoto(cheminFichier);
         encheresService.ajouterPhoto(article);
